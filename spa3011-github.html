@@ -240,6 +240,7 @@
     const today = testVal ? new Date(testVal + "T00:00:00") : new Date();
     today.setHours(0, 0, 0, 0);
     const tbody = document.getElementById("moduleBody");
+    tbody.innerHTML = "";
 
     modules.forEach(mod => {
       const [sy, sm, sd] = mod.start.split("-").map(Number);
