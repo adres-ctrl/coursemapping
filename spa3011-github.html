@@ -249,12 +249,12 @@
       const badge = current ? `<span class="badge">&#9654; This Week</span>` : "";
 
       const second = mod.secondTitle
-        ? `<span class="second-link">&nbsp;|&nbsp;<a href="${mod.secondUrl}">${mod.secondTitle}</a></span>`
+        ? `<span class="second-link">&nbsp;|&nbsp;<a href="${mod.secondUrl}" target="_top">${mod.secondTitle}</a></span>`
         : "";
 
       tr.innerHTML = `
         <td class="wk">${mod.wk}</td>
-        <td class="ttl"><a href="${mod.url}">${mod.title}</a>${second}${badge}</td>
+        <td class="ttl"><a href="${mod.url}" target="_top">${mod.title}</a>${second}${badge}</td>
         <td class="dt">${fmt(mod.start)} – ${fmt(mod.end)}</td>
       `;
 
