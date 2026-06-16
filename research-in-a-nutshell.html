@@ -18,6 +18,8 @@
   --v:#1b3d8f;--vl:#e6ecfb;
   --s:#6b1b6b;--sl:#f4e6f4;
   --a:#8c1f00;--al:#fbeee8;
+
+  --l:#0b7a8f; --ll:rgba(11,122,143,.12); --lb:#096878;
   --r:#7a4f0a;--rl:#fef1da;
   --rad:12px;--rads:8px;
   font-family:'Source Sans 3',system-ui,sans-serif;font-size:16px;color:var(--tx);
@@ -613,6 +615,37 @@ html,body{background:var(--bg);min-height:100vh}
 .dartboard-card svg{width:100%;height:auto;display:block;margin:0 auto .5rem}
 .dartboard-label{font-size:12px;font-weight:700;color:var(--tx);margin-bottom:2px}
 .dartboard-sub{font-size:11px;color:var(--tx3);line-height:1.4}
+
+/* ── LITERATURE REVIEW NAV ── */
+.nl{border-left-color:var(--l)}
+.nl:hover,.nl.active{background:var(--ll);color:var(--l)}
+.nl.active{border-left-color:var(--l)}
+/* ── BOOLEAN BUILDER ── */
+.bool-group{background:var(--surf);border:1.5px solid var(--brd);border-radius:var(--rad);padding:1rem 1.1rem;margin-bottom:.75rem}
+.bool-group-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
+.bool-group-lbl{font-size:13px;font-weight:700;color:var(--l)}
+.bool-group-note{font-size:11px;color:var(--tx3)}
+.bool-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:.6rem;min-height:24px}
+.bool-tag{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;background:var(--ll);border:1px solid var(--l);border-radius:20px;font-size:12px;color:var(--l);font-weight:600}
+.bool-tag-x{cursor:pointer;font-size:13px;opacity:.6;line-height:1;margin-left:1px}
+.bool-tag-x:hover{opacity:1}
+.bool-inp{width:100%;padding:.4rem .7rem;border:1.5px solid var(--brd2);border-radius:var(--rads);background:var(--surf2);color:var(--tx);font-size:13px;font-family:'Source Sans 3',sans-serif;box-sizing:border-box}
+.bool-inp:focus{outline:none;border-color:var(--l)}
+.bool-not{border:1.5px dashed var(--brd2);border-radius:var(--rad);padding:.85rem 1rem;margin:.75rem 0}
+.bool-not-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--a);margin-bottom:.5rem}
+.bool-out-wrap{background:var(--surf);border:2px solid var(--l);border-radius:var(--rad);padding:1rem 1.2rem;margin-top:1rem}
+.bool-out-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--l);margin-bottom:.5rem}
+.bool-out-str{font-family:'Courier New',monospace;font-size:12.5px;color:var(--tx);line-height:1.7;word-break:break-all;background:var(--surf2);padding:.75rem 1rem;border-radius:var(--rads);margin-bottom:.75rem;min-height:48px}
+.bool-out-empty{color:var(--tx3);font-style:italic;font-size:12px}
+.bool-row{display:flex;gap:8px;flex-wrap:wrap}
+.bool-add-btn{padding:.45rem 1rem;background:var(--ll);border:1.5px solid var(--l);border-radius:var(--rads);font-size:13px;font-weight:600;color:var(--l);cursor:pointer;font-family:'Source Sans 3',sans-serif;display:inline-flex;align-items:center;gap:5px}
+.bool-add-btn:hover{background:var(--l);color:#fff}
+.bool-copy-btn{padding:.45rem 1.1rem;background:var(--l);border:none;border-radius:var(--rads);font-size:13px;font-weight:600;color:#fff;cursor:pointer;font-family:'Source Sans 3',sans-serif;display:inline-flex;align-items:center;gap:5px}
+.bool-copy-btn:hover{background:var(--lb)}
+.bool-rm-btn{font-size:11px;color:var(--tx3);border:1px solid var(--brd);background:transparent;cursor:pointer;padding:2px 7px;border-radius:4px;font-family:'Source Sans 3',sans-serif}
+.bool-rm-btn:hover{color:var(--a);border-color:var(--a)}
+.bool-pico-btn{padding:.4rem .9rem;background:transparent;border:1.5px solid var(--brd2);border-radius:var(--rads);font-size:12px;color:var(--tx2);cursor:pointer;font-family:'Source Sans 3',sans-serif;display:inline-flex;align-items:center;gap:4px}
+.bool-pico-btn:hover{border-color:var(--p);color:var(--p)}
 </style>
 </head>
 <body><header class="hd">
@@ -638,9 +671,12 @@ html,body{background:var(--bg);min-height:100vh}
     <button class="nav-item np active" data-t="qm" onclick="showPanel('qm')"><i class="ti ti-topology-star"></i>Study Approach<span class="nav-dot" id="dot-qm"></span></button>
     <button class="nav-item np" data-t="qf" onclick="showPanel('qf')"><i class="ti ti-help-octagon"></i>Question Framework<span class="nav-dot" id="dot-qf"></span></button>
     <div class="sidebar-div"></div>
+    <div class="nav-group-hd">Literature &amp; Search</div>
+    <button class="nav-item nl" data-t="eb" onclick="showPanel('eb')"><i class="ti ti-pyramid"></i>Levels of Evidence</button>
+    <button class="nav-item nl" data-t="bool" onclick="showPanel('bool')"><i class="ti ti-search"></i>Boolean Search Builder</button>
+    <div class="sidebar-div"></div>
     <div class="nav-group-hd">Study Design</div>
     <button class="nav-item nd" data-t="d" onclick="showPanel('d')"><i class="ti ti-flask"></i>Research Designs<span class="nav-dot" id="dot-d"></span></button>
-    <button class="nav-item nd" data-t="eb" onclick="showPanel('eb')"><i class="ti ti-pyramid"></i>Levels of Evidence</button>
     <button class="nav-item nd" data-t="tv" onclick="showPanel('tv')"><i class="ti ti-alert-triangle"></i>Threats to Validity<span class="nav-dot" id="dot-tv"></span></button>
     <button class="nav-item nd" data-t="vars" onclick="showPanel('vars')"><i class="ti ti-variable"></i>Variables<span class="nav-dot" id="dot-vars"></span></button>
     <button class="nav-item nd" data-t="s" onclick="showPanel('s')"><i class="ti ti-users"></i>Sampling<span class="nav-dot" id="dot-s"></span></button>
@@ -1099,9 +1135,74 @@ html,body{background:var(--bg);min-height:100vh}
   </div>
 </div>
 
+<!-- ═══ BOOLEAN SEARCH BUILDER ═══ -->
+<div id="panel-bool" class="panel">
+  <div class="sh"><div class="sh-eye" style="color:var(--l)">Literature &amp; Search</div><h1 class="sh-h">Boolean Search Builder</h1><p class="sh-sub">Learn Boolean logic, then build a search string to copy into any academic database.</p></div>
+  <div class="ptabs"><button class="ptab-btn active tc-l" id="ptab-bool-study" onclick="switchPanelTab('bool','study')" style="--tc:var(--l)"><i class="ti ti-book-2"></i>Study</button><button class="ptab-btn tc-l" id="ptab-bool-tool" onclick="switchPanelTab('bool','tool')" style="--tc:var(--l)"><i class="ti ti-tool"></i>Tool</button></div>
+  <!-- Study tab -->
+  <div class="ptab-content on" id="ptcontent-bool-study">
+    <div class="callout" style="border-color:var(--l)"><strong>Boolean searching</strong> uses logical operators to combine search terms. Every academic database — PubMed, CINAHL, PsycINFO, ERIC — recognises these operators. A well-constructed Boolean string retrieves more relevant results and fewer irrelevant ones than simple keyword searching.</div>
+    <div class="comp-wrap"><table class="comp-table">
+      <thead><tr><th>Operator</th><th>Symbol</th><th>Purpose</th><th>Example</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:600;color:var(--l)">AND</td><td style="font-family:monospace;font-size:14px;font-weight:700">AND</td><td>Narrows — both terms must appear</td><td><code>apraxia AND therapy</code></td><td>Fewer, more relevant results</td></tr>
+        <tr><td style="font-weight:600;color:var(--l)">OR</td><td style="font-family:monospace;font-size:14px;font-weight:700">OR</td><td>Broadens — either term may appear</td><td><code>CAS OR "childhood apraxia"</code></td><td>More results — use for synonyms</td></tr>
+        <tr><td style="font-weight:600;color:var(--l)">NOT</td><td style="font-family:monospace;font-size:14px;font-weight:700">NOT</td><td>Excludes — removes results with this term</td><td><code>fluency NOT cluttering</code></td><td>Filters out unwanted topics</td></tr>
+        <tr><td style="font-weight:600;color:var(--l)">"Quotes"</td><td style="font-family:monospace;font-size:14px;font-weight:700">" "</td><td>Exact phrase — words stay together</td><td><code>"percent consonants correct"</code></td><td>Treats phrase as one unit</td></tr>
+        <tr><td style="font-weight:600;color:var(--l)">Truncation</td><td style="font-family:monospace;font-size:14px;font-weight:700">*</td><td>Wildcard — catches word variants</td><td><code>therap*</code></td><td>Finds therapy, therapies, therapeutic</td></tr>
+        <tr><td style="font-weight:600;color:var(--l)">( )</td><td style="font-family:monospace;font-size:14px;font-weight:700">( )</td><td>Grouping — controls operator order</td><td><code>(CAS OR apraxia) AND therapy</code></td><td>OR runs first, then AND</td></tr>
+      </tbody>
+    </table></div>
+    <div class="sublabel" style="color:var(--l);margin-top:1.25rem">&#9670; How PICO maps to a Boolean string</div>
+    <div class="callout" style="border-color:var(--l);font-family:monospace;font-size:13px;line-height:2">
+      <span style="color:#888">Population →</span> <strong>("childhood apraxia of speech" OR "CAS" OR "apraxia of speech")</strong><br>
+      <span style="color:var(--l);font-weight:700;font-family:'Source Sans 3',sans-serif;font-size:12px">AND</span><br>
+      <span style="color:#888">Intervention →</span> <strong>("ReST therapy" OR "motor learning" OR "motor speech therapy")</strong><br>
+      <span style="color:var(--l);font-weight:700;font-family:'Source Sans 3',sans-serif;font-size:12px">AND</span><br>
+      <span style="color:#888">Outcome →</span> <strong>("percent consonants correct" OR "PCC" OR "articulation accuracy")</strong>
+    </div>
+    <div class="callout" style="border-color:var(--l);margin-top:1rem;font-size:13px"><strong>Key principle:</strong> Use AND to connect your PICO concepts (narrowing the search), and OR to connect synonyms within each concept (broadening within that concept). Put each concept group in parentheses so OR runs first, then AND joins the groups.</div>
+    <div class="sublabel" style="color:var(--l);margin-top:1.25rem">&#9670; Recommended CSD databases</div>
+    <div class="comp-wrap"><table class="comp-table">
+      <thead><tr><th>Database</th><th>Best for</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:600">PubMed / MEDLINE</td><td>Medical and allied health research; RCTs; systematic reviews</td><td>Free; use MeSH terms for precision</td></tr>
+        <tr><td style="font-weight:600">CINAHL</td><td>Nursing and allied health; clinical CSD research</td><td>UCF library access required</td></tr>
+        <tr><td style="font-weight:600">PsycINFO</td><td>Psychology, language, cognitive and developmental research</td><td>APA database; strong for pediatric CSD</td></tr>
+        <tr><td style="font-weight:600">ERIC</td><td>Education, special education, language and literacy</td><td>Strong for school-based SLP topics</td></tr>
+        <tr><td style="font-weight:600">Cochrane Library</td><td>Systematic reviews and meta-analyses</td><td>Free; highest-level evidence</td></tr>
+        <tr><td style="font-weight:600">Google Scholar</td><td>Broad searches; finding grey literature; citation chaining</td><td>No quality filter — verify peer-review status manually</td></tr>
+        <tr><td style="font-weight:600">ASHA Wire / JSLHR</td><td>CSD-specific journals: AJSLP, JSLHR, LSHSS, SIG perspectives</td><td>ASHA member access; directly relevant to clinical practice</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <!-- Tool tab -->
+  <div class="ptab-content" id="ptcontent-bool-tool">
+    <div class="callout" style="border-color:var(--l)"><strong>Build your search string below.</strong> Each concept group joins its terms with OR. Groups are joined with AND. Multi-word phrases are automatically quoted.</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem">
+      <button class="bool-pico-btn" onclick="boolPrefill()"><i class="ti ti-wand"></i>Pre-fill from my PICO</button>
+      <button class="bool-pico-btn" onclick="boolReset()"><i class="ti ti-refresh"></i>Clear all</button>
+    </div>
+    <div id="bool-groups-container"></div>
+    <button class="bool-add-btn" onclick="boolAddGroup()" style="margin-bottom:1rem"><i class="ti ti-plus"></i>Add concept group</button>
+    <div class="bool-not">
+      <div class="bool-not-lbl">Exclude (NOT) — terms to omit from results</div>
+      <div class="bool-tags" id="bool-not-tags"></div>
+      <input class="bool-inp" id="bool-not-inp" placeholder="Type a term to exclude and press Enter" onkeydown="boolAddNot(event)">
+    </div>
+    <div class="bool-out-wrap">
+      <div class="bool-out-lbl"><i class="ti ti-terminal"></i>&nbsp; Your Boolean search string</div>
+      <div class="bool-out-str" id="bool-out-str"><span class="bool-out-empty">Add terms above to generate your search string.</span></div>
+      <div class="bool-row">
+        <button class="bool-copy-btn" onclick="boolCopy()"><i class="ti ti-copy"></i>Copy string</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ LEVELS OF EVIDENCE ═══ -->
 <div id="panel-eb" class="panel">
-  <div class="sh"><div class="sh-eye" style="color:var(--d)">Study Design</div><h1 class="sh-h">Levels of Evidence</h1><p class="sh-sub">Click any bar to see design details. Taller bar = stronger evidence for causal claims.</p></div>
+  <div class="sh"><div class="sh-eye" style="color:var(--l)">Literature &amp; Search</div><h1 class="sh-h">Levels of Evidence</h1><p class="sh-sub">Click any bar to see design details. Taller bar = stronger evidence for causal claims.</p></div>
   <div class="callout" style="border-color:var(--d)"><strong>EBP in CSD</strong> integrates the best available research evidence, clinical expertise, and client/family values. The level of evidence your design represents should be explicitly stated in your proposal. <strong>Taller bar = stronger evidence.</strong></div>
   <div class="sig-wrap">
     <div class="sig-strength-hd"><span>⬅ Strongest Evidence &nbsp;·&nbsp; Level I</span><span>Level VI &nbsp;·&nbsp; Weakest Evidence ➡</span></div>
@@ -1350,6 +1451,55 @@ html,body{background:var(--bg);min-height:100vh}
   <div class="sh"><div class="sh-eye" style="color:var(--s)">Methods</div><h1 class="sh-h">Statistical Tests</h1><p class="sh-sub">Understand error tradeoffs, then use the decision flow to identify your test.</p></div>
   <div class="ptabs"><button class="ptab-btn active tc-s" id="ptab-a-study" onclick="switchPanelTab('a','study')"><i class="ti ti-book-2"></i>Study</button><button class="ptab-btn tc-s" id="ptab-a-tool" onclick="switchPanelTab('a','tool')"><i class="ti ti-tool"></i>Tool</button></div>
   <div class="ptab-content on" id="ptcontent-a-study">
+    <div class="sublabel" style="color:var(--s)">&#9670; Univariate Analysis — Describing One Variable</div>
+    <div class="callout" style="border-color:var(--s)"><strong>Before comparing or relating variables, describe each one.</strong> Univariate analysis summarizes a single variable at a time — its center, spread, and shape. Every results section begins here, and your choice of descriptive statistics depends on measurement level.</div>
+    <div class="comp-wrap"><table class="comp-table">
+      <thead><tr><th>What to describe</th><th>Statistic</th><th>Use with</th><th>CSD Example</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:600" rowspan="3">Central tendency</td><td><span class="gl-link" onclick="showGlossaryPopover('Mean',event)">Mean</span></td><td>Interval/ratio; no extreme outliers</td><td>Mean PCC across the sample = 68.4%</td></tr>
+        <tr><td><span class="gl-link" onclick="showGlossaryPopover('Median',event)">Median</span></td><td>Ordinal data; skewed distributions</td><td>Median severity rating = "moderate"</td></tr>
+        <tr><td><span class="gl-link" onclick="showGlossaryPopover('Mode',event)">Mode</span></td><td>Nominal data; most frequent category</td><td>Most common diagnosis in sample = DLD</td></tr>
+        <tr><td style="font-weight:600" rowspan="3">Variability</td><td><span class="gl-link" onclick="showGlossaryPopover('Standard Deviation',event)">Standard Deviation</span></td><td>Interval/ratio with the mean</td><td>M = 68.4, SD = 12.1</td></tr>
+        <tr><td>Range</td><td>Quick spread summary; sensitive to outliers</td><td>PCC ranged from 31% to 94%</td></tr>
+        <tr><td>Interquartile Range (IQR)</td><td>Ordinal or skewed data with the median</td><td>IQR for session attendance = 8–14</td></tr>
+        <tr><td style="font-weight:600" rowspan="2">Distribution shape</td><td>Skewness</td><td>Asymmetry — affects test selection</td><td>Floor effect produces positive skew in severity scores</td></tr>
+        <tr><td>Frequency distribution</td><td>All levels; histogram or table</td><td>Distribution of participants across severity categories</td></tr>
+      </tbody>
+    </table></div>
+    <div class="sublabel" style="color:var(--s);margin-top:1.25rem">&#9670; Symmetric distribution — Mode, Median, and Mean coincide</div>
+    <svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;margin-bottom:.5rem" aria-label="Symmetric histogram showing mode median and mean at same position">
+      <line x1="22" y1="100" x2="480" y2="100" stroke="#ccc" stroke-width="1.2"/>
+      <rect x="30" y="93" width="38" height="7" rx="2" fill="#1b3d8f" fill-opacity="0.65"/><rect x="80" y="78" width="38" height="22" rx="2" fill="#1b3d8f" fill-opacity="0.70"/><rect x="130" y="54" width="38" height="46" rx="2" fill="#1b3d8f" fill-opacity="0.75"/><rect x="180" y="31" width="38" height="69" rx="2" fill="#1b3d8f" fill-opacity="0.80"/><rect x="230" y="20" width="38" height="80" rx="2" fill="#1b3d8f" fill-opacity="0.85"/><rect x="280" y="31" width="38" height="69" rx="2" fill="#1b3d8f" fill-opacity="0.80"/><rect x="330" y="54" width="38" height="46" rx="2" fill="#1b3d8f" fill-opacity="0.75"/><rect x="380" y="78" width="38" height="22" rx="2" fill="#1b3d8f" fill-opacity="0.70"/><rect x="430" y="93" width="38" height="7" rx="2" fill="#1b3d8f" fill-opacity="0.65"/>
+      <!-- All three at center bar x=249 -->
+      <line x1="249" y1="18" x2="249" y2="100" stroke="#0b6b55" stroke-width="2" stroke-dasharray="5,3"/>
+      <text x="249" y="14" font-size="10" fill="#0b6b55" text-anchor="middle" font-family="sans-serif" font-weight="700">Mode = Median = Mean</text>
+      <text x="249" y="112" font-size="9" fill="#444" text-anchor="middle" font-family="sans-serif" font-style="italic">Symmetric: all three measures fall at the peak</text>
+    </svg>
+
+    <div class="sublabel" style="color:var(--s);margin-top:1rem">&#9671; Right-skewed distribution — the three measures separate</div>
+    <svg viewBox="0 0 520 125" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;margin-bottom:.75rem" aria-label="Right-skewed histogram with mode median and mean at accurate calculated positions">
+      <line x1="22" y1="100" x2="480" y2="100" stroke="#ccc" stroke-width="1.2"/>
+      <rect x="30" y="87" width="38" height="13" rx="2" fill="#1b3d8f" fill-opacity="0.80"/><rect x="80" y="20" width="38" height="80" rx="2" fill="#1b3d8f" fill-opacity="0.73"/><rect x="130" y="51" width="38" height="49" rx="2" fill="#1b3d8f" fill-opacity="0.66"/><rect x="180" y="66" width="38" height="34" rx="2" fill="#1b3d8f" fill-opacity="0.59"/><rect x="230" y="77" width="38" height="23" rx="2" fill="#1b3d8f" fill-opacity="0.52"/><rect x="280" y="84" width="38" height="16" rx="2" fill="#1b3d8f" fill-opacity="0.45"/><rect x="330" y="89" width="38" height="11" rx="2" fill="#1b3d8f" fill-opacity="0.38"/><rect x="380" y="93" width="38" height="7" rx="2" fill="#1b3d8f" fill-opacity="0.31"/><rect x="430" y="96" width="38" height="4" rx="2" fill="#1b3d8f" fill-opacity="0.25"/>
+      <!-- Mode at x=99 (bar 2 peak) -->
+      <line x1="99" y1="18" x2="99" y2="100" stroke="#0b6b55" stroke-width="2" stroke-dasharray="5,3"/>
+      <text x="99" y="14" font-size="10" fill="#0b6b55" text-anchor="middle" font-family="sans-serif" font-weight="700">Mode</text>
+      <!-- Median at x=150 (verified: 50th percentile of bar areas) -->
+      <line x1="150" y1="18" x2="150" y2="100" stroke="#7a4f0a" stroke-width="2" stroke-dasharray="5,3"/>
+      <text x="150" y="14" font-size="10" fill="#7a4f0a" text-anchor="middle" font-family="sans-serif" font-weight="700">Median</text>
+      <!-- Mean at x=175 (verified: weighted average of bar positions) -->
+      <line x1="175" y1="18" x2="175" y2="100" stroke="#8c1f00" stroke-width="2" stroke-dasharray="5,3"/>
+      <text x="175" y="14" font-size="10" fill="#8c1f00" text-anchor="middle" font-family="sans-serif" font-weight="700">Mean</text>
+      <!-- Tail arrow -->
+      <path d="M 340,55 Q 400,42 450,36" fill="none" stroke="#6b1b6b" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-skew)"/>
+      <defs><marker id="arr-skew" markerWidth="7" markerHeight="5" refX="5" refY="2.5" orient="auto"><path d="M0,0 L0,5 L7,2.5 Z" fill="#6b1b6b"/></marker></defs>
+      <text x="330" y="50" font-size="9" fill="#6b1b6b" font-family="sans-serif">Tail pulls</text>
+      <text x="330" y="61" font-size="9" fill="#6b1b6b" font-family="sans-serif">mean right</text>
+      <text x="260" y="115" font-size="9" fill="#444" text-anchor="middle" font-family="sans-serif" font-style="italic">Right-skewed: Mean is pulled toward the tail. Mean ≠ most common value. Use Median.</text>
+    </svg>
+
+    
+    <div class="callout" style="border-color:var(--s);font-size:12.5px"><strong>Why it matters for test selection:</strong> Univariate analysis reveals whether your data meet parametric assumptions. A skewed distribution or extreme outliers signal that a <span class="gl-link" onclick="showGlossaryPopover('Mann-Whitney U',event)">non-parametric test</span> may be the safer choice. Always inspect distributions before choosing your inferential test.</div>
+
     <div class="t12-label">Decision Matrix — What Your Test Can Get Wrong</div>
     <div class="t12-section">
       <div class="t12-grid">
@@ -1373,8 +1523,8 @@ html,body{background:var(--bg);min-height:100vh}
     <div class="comp-wrap"><table class="comp-table">
       <thead><tr><th>Test</th><th>Purpose</th><th>Design</th><th style="min-width:95px"><span class="gl-link" onclick="showGlossaryPopover('Effect Size',event)">Effect Size</span></th><th>Key Assumption</th><th>CSD Example</th></tr></thead>
       <tbody>
-        <tr><td style="font-weight:600">Independent Samples <span class="gl-link" onclick="showGlossaryPopover('t-test',event)">t-test</span></td><td>Compare means of 2 independent groups</td><td>2 groups, continuous <span class="gl-link" onclick="showGlossaryPopover('Dependent Variable (DV)',event)">DV</span></td><td><span class="gl-link" onclick="showGlossaryPopover('Cohen's d',event)">Cohen's d</span></td><td>Normal DV; equal variances (Levene's test)</td><td>PCC scores: ReST vs. minimal pairs therapy groups</td></tr>
-        <tr><td style="font-weight:600">Paired Samples <span class="gl-link" onclick="showGlossaryPopover('t-test',event)">t-test</span></td><td>Compare means at 2 time points in same participants</td><td>Pre/post, repeated measures</td><td><span class="gl-link" onclick="showGlossaryPopover('Cohen's d',event)">Cohen's d</span></td><td>Normally distributed difference scores</td><td>Stuttering frequency before vs. after fluency shaping</td></tr>
+        <tr><td style="font-weight:600">Independent Samples <span class="gl-link" onclick="showGlossaryPopover('t-test',event)">t-test</span></td><td>Compare means of 2 independent groups</td><td>2 groups, continuous <span class="gl-link" onclick="showGlossaryPopover('Dependent Variable (DV)',event)">DV</span></td><td><span class="gl-link" onclick="showGlossaryPopover('Cohens d',event)">Cohen's d</span></td><td>Normal DV; equal variances (Levene's test)</td><td>PCC scores: ReST vs. minimal pairs therapy groups</td></tr>
+        <tr><td style="font-weight:600">Paired Samples <span class="gl-link" onclick="showGlossaryPopover('t-test',event)">t-test</span></td><td>Compare means at 2 time points in same participants</td><td>Pre/post, repeated measures</td><td><span class="gl-link" onclick="showGlossaryPopover('Cohens d',event)">Cohen's d</span></td><td>Normally distributed difference scores</td><td>Stuttering frequency before vs. after fluency shaping</td></tr>
         <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('ANOVA',event)">One-Way ANOVA</span></td><td>Compare means across 3+ independent groups</td><td>3+ groups, one <span class="gl-link" onclick="showGlossaryPopover('Independent Variable (IV)',event)">IV</span>, continuous <span class="gl-link" onclick="showGlossaryPopover('Dependent Variable (DV)',event)">DV</span></td><td><span class="gl-link" onclick="showGlossaryPopover('Eta-Squared',event)">η²</span></td><td>Normal DV; homogeneity of variance</td><td>MLU across 3 groups: TD, DLD, ASD</td></tr>
         <tr><td style="font-weight:600">Factorial <span class="gl-link" onclick="showGlossaryPopover('Factorial ANOVA',event)">ANOVA</span></td><td>Test main effects and interaction of 2+ IVs</td><td>2+ IVs, continuous DV</td><td>η² partial</td><td>Same as one-way; balanced design preferred</td><td>Treatment type × service delivery model on articulation outcomes</td></tr>
         <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Pearson Correlation (r)',event)">Pearson Correlation (r)</span></td><td>Describe linear relationship between 2 continuous variables</td><td>2 continuous variables</td><td>r itself</td><td>Linear relationship; no extreme outliers</td><td>Relationship between phonological awareness and reading fluency</td></tr>
@@ -1389,7 +1539,7 @@ html,body{background:var(--bg);min-height:100vh}
       <tbody>
         <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Mann-Whitney U',event)">Mann-Whitney U</span></td><td>Independent <span class="gl-link" onclick="showGlossaryPopover('t-test',event)">t-test</span></td><td>2 independent groups; <span class="gl-link" onclick="showGlossaryPopover('Ordinal Scale',event)">ordinal</span> or non-normal continuous <span class="gl-link" onclick="showGlossaryPopover('Dependent Variable (DV)',event)">DV</span></td><td>Rank-biserial r</td><td>Severity ratings between two treatment groups</td></tr>
         <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Wilcoxon Signed-Rank Test',event)">Wilcoxon Signed-Rank</span></td><td>Paired <span class="gl-link" onclick="showGlossaryPopover('t-test',event)">t-test</span></td><td>Same participants at 2 time points; <span class="gl-link" onclick="showGlossaryPopover('Ordinal Scale',event)">ordinal</span> <span class="gl-link" onclick="showGlossaryPopover('Dependent Variable (DV)',event)">DV</span></td><td>r = Z/√N</td><td>Pre/post severity ratings for adults who stutter</td></tr>
-        <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Kruskal-Wallis H Test',event)">Kruskal-Wallis H</span></td><td>One-Way ANOVA</td><td>3+ independent groups; ordinal or non-normal DV</td><td>η² from H</td><td>Functional communication ratings across three diagnostic groups</td></tr>
+        <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Kruskal-Wallis H',event)">Kruskal-Wallis H</span></td><td>One-Way ANOVA</td><td>3+ independent groups; ordinal or non-normal DV</td><td>η² from H</td><td>Functional communication ratings across three diagnostic groups</td></tr>
         <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Spearman ρ (rho)',event)">Spearman ρ</span></td><td><span class="gl-link" onclick="showGlossaryPopover('Pearson Correlation (r)',event)">Pearson r</span></td><td>2 ordinal variables or non-normal continuous variables</td><td>ρ itself</td><td>Clinician severity rating vs. client self-rating</td></tr>
         <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Chi-Square (χ²)',event)">Chi-Square (χ²)</span></td><td>—</td><td>2 categorical variables; examining frequency/association</td><td>Cramér's V</td><td>Association between disorder type and school placement</td></tr>
       </tbody>
@@ -1415,31 +1565,27 @@ html,body{background:var(--bg);min-height:100vh}
       <div class="sg-card">
         <div class="sg-title">Independent Samples t-test</div>
         <div class="sg-desc">Are these two group means significantly different?</div>
-        <svg viewBox="0 0 280 140" xmlns="http://www.w3.org/2000/svg" aria-label="Two overlapping bell curves showing Group A and Group B distributions">
+        <svg viewBox="0 0 280 140" xmlns="http://www.w3.org/2000/svg" aria-label="Two smooth overlapping bell curves showing Group A and Group B distributions">
           <defs><clipPath id="clip-t"><rect x="0" y="0" width="280" height="130"/></clipPath></defs>
-          <!-- axes -->
-          <line x1="20" y1="118" x2="265" y2="118" stroke="#ccc" stroke-width="1"/>
-          <!-- Group A curve fill -->
-          <path d="M 30,118 C 50,118 70,20 110,20 C 150,118 170,118 190,118 Z" fill="#0b6b55" fill-opacity="0.15" clip-path="url(#clip-t)"/>
-          <!-- Group B curve fill -->
-          <path d="M 90,118 C 110,118 130,20 170,20 C 210,118 230,118 250,118 Z" fill="#6b1b6b" fill-opacity="0.15" clip-path="url(#clip-t)"/>
-          <!-- Group A curve stroke -->
-          <path d="M 30,118 C 50,118 70,20 110,20 C 150,118 170,118 190,118" fill="none" stroke="#0b6b55" stroke-width="2.2" clip-path="url(#clip-t)"/>
-          <!-- Group B curve stroke -->
-          <path d="M 90,118 C 110,118 130,20 170,20 C 210,118 230,118 250,118" fill="none" stroke="#6b1b6b" stroke-width="2.2" clip-path="url(#clip-t)"/>
+          <line x1="8" y1="126" x2="272" y2="126" stroke="#ccc" stroke-width="1"/>
+          <!-- Group A fill -->
+          <polygon points="34.0,125.0 40.6,123.7 47.2,121.1 53.8,116.3 60.4,108.6 67.0,97.4 73.6,83.2 80.2,67.3 86.8,52.5 93.4,41.9 100.0,38.0 106.6,41.9 113.2,52.5 119.8,67.3 126.4,83.2 133.0,97.4 139.6,108.6 146.2,116.3 152.8,121.1 159.4,123.7 166.0,125.0 166.0,126 34.0,126" fill="#0b6b55" fill-opacity="0.14" clip-path="url(#clip-t)"/>
+          <!-- Group B fill -->
+          <polygon points="109.0,125.0 115.6,123.7 122.2,121.1 128.8,116.3 135.4,108.6 142.0,97.4 148.6,83.2 155.2,67.3 161.8,52.5 168.4,41.9 175.0,38.0 181.6,41.9 188.2,52.5 194.8,67.3 201.4,83.2 208.0,97.4 214.6,108.6 221.2,116.3 227.8,121.1 234.4,123.7 241.0,125.0 241.0,126 109.0,126" fill="#6b1b6b" fill-opacity="0.14" clip-path="url(#clip-t)"/>
+          <!-- Group A curve -->
+          <polyline points="34.0,125.0 40.6,123.7 47.2,121.1 53.8,116.3 60.4,108.6 67.0,97.4 73.6,83.2 80.2,67.3 86.8,52.5 93.4,41.9 100.0,38.0 106.6,41.9 113.2,52.5 119.8,67.3 126.4,83.2 133.0,97.4 139.6,108.6 146.2,116.3 152.8,121.1 159.4,123.7 166.0,125.0" fill="none" stroke="#0b6b55" stroke-width="2.2" clip-path="url(#clip-t)"/>
+          <!-- Group B curve -->
+          <polyline points="109.0,125.0 115.6,123.7 122.2,121.1 128.8,116.3 135.4,108.6 142.0,97.4 148.6,83.2 155.2,67.3 161.8,52.5 168.4,41.9 175.0,38.0 181.6,41.9 188.2,52.5 194.8,67.3 201.4,83.2 208.0,97.4 214.6,108.6 221.2,116.3 227.8,121.1 234.4,123.7 241.0,125.0" fill="none" stroke="#6b1b6b" stroke-width="2.2" clip-path="url(#clip-t)"/>
           <!-- Mean lines -->
-          <line x1="110" y1="20" x2="110" y2="118" stroke="#0b6b55" stroke-width="1.5" stroke-dasharray="4,3"/>
-          <line x1="170" y1="20" x2="170" y2="118" stroke="#6b1b6b" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <line x1="100" y1="38" x2="100" y2="126" stroke="#0b6b55" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <line x1="175" y1="38" x2="175" y2="126" stroke="#6b1b6b" stroke-width="1.5" stroke-dasharray="4,3"/>
           <!-- Difference bracket -->
-          <line x1="110" y1="12" x2="170" y2="12" stroke="#444" stroke-width="1.5"/>
-          <line x1="110" y1="8" x2="110" y2="16" stroke="#444" stroke-width="1.5"/>
-          <line x1="170" y1="8" x2="170" y2="16" stroke="#444" stroke-width="1.5"/>
-          <text x="140" y="10" font-size="9" fill="#444" text-anchor="middle" font-family="sans-serif" font-weight="600">d</text>
-          <!-- Labels -->
-          <text x="80" y="136" font-size="10" fill="#0b6b55" text-anchor="middle" font-family="sans-serif" font-weight="600">Group A</text>
-          <text x="80" y="126" font-size="9" fill="#0b6b55" text-anchor="middle" font-family="sans-serif">μ₁</text>
-          <text x="200" y="136" font-size="10" fill="#6b1b6b" text-anchor="middle" font-family="sans-serif" font-weight="600">Group B</text>
-          <text x="200" y="126" font-size="9" fill="#6b1b6b" text-anchor="middle" font-family="sans-serif">μ₂</text>
+          <line x1="100" y1="12" x2="175" y2="12" stroke="#444" stroke-width="1.5"/>
+          <line x1="100" y1="8" x2="100" y2="16" stroke="#444" stroke-width="1.5"/>
+          <line x1="175" y1="8" x2="175" y2="16" stroke="#444" stroke-width="1.5"/>
+          <text x="137" y="10" font-size="9" fill="#444" text-anchor="middle" font-family="sans-serif" font-weight="600">d</text>
+          <text x="76" y="136" font-size="10" fill="#0b6b55" text-anchor="middle" font-family="sans-serif" font-weight="600">Group A  μ₁</text>
+          <text x="200" y="136" font-size="10" fill="#6b1b6b" text-anchor="middle" font-family="sans-serif" font-weight="600">Group B  μ₂</text>
         </svg>
       </div>
 
@@ -1805,34 +1951,31 @@ html,body{background:var(--bg);min-height:100vh}
       <div class="sg-card">
         <div class="sg-title">p-value &amp; Statistical Significance</div>
         <div class="sg-desc">The shaded tail area = p-value. If it falls below α (.05), reject H₀.</div>
-        <svg viewBox="0 0 280 140" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <clipPath id="clip-pv"><rect x="18" y="0" width="244" height="130"/></clipPath>
-          </defs>
+        <svg viewBox="0 0 280 140" xmlns="http://www.w3.org/2000/svg" aria-label="Smooth bell curve with shaded critical regions at plus and minus 1.96">
+          <defs><clipPath id="clip-pv"><rect x="0" y="0" width="280" height="130"/></clipPath></defs>
           <line x1="18" y1="112" x2="262" y2="112" stroke="#ccc" stroke-width="1"/>
-          <!-- Full bell curve -->
-          <path d="M 20,112 C 42,112 68,18 140,18 C 212,112 238,112 260,112" fill="#e8edf8" stroke="#1b3d8f" stroke-width="1.5" clip-path="url(#clip-pv)"/>
-          <!-- Left critical region shaded red (z < -1.96) -->
-          <path d="M 20,112 C 35,112 46,98 58,112 Z" fill="#8c1f00" fill-opacity="0.55" clip-path="url(#clip-pv)"/>
-          <path d="M 20,112 C 35,112 46,98 58,112" fill="none" stroke="#8c1f00" stroke-width="1.5" clip-path="url(#clip-pv)"/>
-          <!-- Right critical region shaded red (z > 1.96) -->
-          <path d="M 222,112 C 234,98 245,112 260,112 Z" fill="#8c1f00" fill-opacity="0.55" clip-path="url(#clip-pv)"/>
-          <path d="M 222,112 C 234,98 245,112 260,112" fill="none" stroke="#8c1f00" stroke-width="1.5" clip-path="url(#clip-pv)"/>
+          <!-- Full bell fill (light blue) -->
+          <polygon points="50.0,111.159.0,109.968.0,107.577.0,103.286.0,96.295.0,86.0104.0,73.1113.0,58.6122.0,45.2131.0,35.5140.0,32.0149.0,35.5158.0,45.2167.0,58.6176.0,73.1185.0,86.0194.0,96.2203.0,103.2212.0,107.5221.0,109.9230.0,111.1" fill="#e8edf8" clip-path="url(#clip-pv)"/>
+          <polygon points="50,112 50.0,111.1 59.0,109.9 68.0,107.5 77.0,103.2 86.0,96.2 95.0,86.0 104.0,73.1 113.0,58.6 122.0,45.2 131.0,35.5 140.0,32.0 149.0,35.5 158.0,45.2 167.0,58.6 176.0,73.1 185.0,86.0 194.0,96.2 203.0,103.2 212.0,107.5 221.0,109.9 230.0,111.1 230,112" fill="#e8edf8" clip-path="url(#clip-pv)"/>
+          <!-- Left critical tail -->
+          <polygon points="50,112 50.0,111.1 59.0,109.9 68.0,107.5 77.0,103.2 81.2,100.3 81.2,112" fill="#8c1f00" fill-opacity="0.55" clip-path="url(#clip-pv)"/>
+          <!-- Right critical tail -->
+          <polygon points="198.8,112 198.8,100.3 203.0,103.2 212.0,107.5 221.0,109.9 230.0,111.1 230,112" fill="#8c1f00" fill-opacity="0.55" clip-path="url(#clip-pv)"/>
+          <!-- Full bell curve outline -->
+          <polyline points="50.0,111.1 59.0,109.9 68.0,107.5 77.0,103.2 86.0,96.2 95.0,86.0 104.0,73.1 113.0,58.6 122.0,45.2 131.0,35.5 140.0,32.0 149.0,35.5 158.0,45.2 167.0,58.6 176.0,73.1 185.0,86.0 194.0,96.2 203.0,103.2 212.0,107.5 221.0,109.9 230.0,111.1" fill="none" stroke="#1b3d8f" stroke-width="1.8" clip-path="url(#clip-pv)"/>
           <!-- Critical value lines -->
-          <line x1="58" y1="95" x2="58" y2="112" stroke="#8c1f00" stroke-width="1.5" stroke-dasharray="4,2"/>
-          <line x1="222" y1="95" x2="222" y2="112" stroke="#8c1f00" stroke-width="1.5" stroke-dasharray="4,2"/>
+          <line x1="81.2" y1="100.3" x2="81.2" y2="112" stroke="#8c1f00" stroke-width="1.5" stroke-dasharray="4,2"/>
+          <line x1="198.8" y1="100.3" x2="198.8" y2="112" stroke="#8c1f00" stroke-width="1.5" stroke-dasharray="4,2"/>
           <!-- Labels -->
-          <text x="38" y="92" font-size="8" fill="#8c1f00" text-anchor="middle" font-family="sans-serif" font-weight="600">Reject H₀</text>
-          <text x="38" y="82" font-size="8" fill="#8c1f00" text-anchor="middle" font-family="sans-serif">α/2=.025</text>
-          <text x="242" y="92" font-size="8" fill="#8c1f00" text-anchor="middle" font-family="sans-serif" font-weight="600">Reject H₀</text>
-          <text x="242" y="82" font-size="8" fill="#8c1f00" text-anchor="middle" font-family="sans-serif">α/2=.025</text>
+          <text x="36" y="98" font-size="8" fill="#8c1f00" text-anchor="middle" font-family="sans-serif" font-weight="600">Reject H₀</text>
+          <text x="36" y="88" font-size="8" fill="#8c1f00" text-anchor="middle" font-family="sans-serif">α/2=.025</text>
+          <text x="244" y="98" font-size="8" fill="#8c1f00" text-anchor="middle" font-family="sans-serif" font-weight="600">Reject H₀</text>
+          <text x="244" y="88" font-size="8" fill="#8c1f00" text-anchor="middle" font-family="sans-serif">α/2=.025</text>
           <text x="140" y="70" font-size="9" fill="#1b3d8f" text-anchor="middle" font-family="sans-serif">Fail to reject H₀</text>
           <text x="140" y="82" font-size="9" fill="#1b3d8f" text-anchor="middle" font-family="sans-serif">p &gt; .05</text>
-          <!-- Critical value labels -->
-          <text x="58" y="122" font-size="8" fill="#8c1f00" text-anchor="middle" font-family="sans-serif">−1.96</text>
-          <text x="222" y="122" font-size="8" fill="#8c1f00" text-anchor="middle" font-family="sans-serif">+1.96</text>
+          <text x="81.2" y="122" font-size="8" fill="#8c1f00" text-anchor="middle" font-family="sans-serif">−1.96</text>
+          <text x="198.8" y="122" font-size="8" fill="#8c1f00" text-anchor="middle" font-family="sans-serif">+1.96</text>
           <text x="140" y="122" font-size="8" fill="#aaa" text-anchor="middle" font-family="sans-serif">z = 0</text>
-          <!-- Title annotation -->
           <text x="140" y="136" font-size="8.5" fill="#444" text-anchor="middle" font-family="sans-serif">Two-tailed test at α = .05 · Total shaded area = 5%</text>
         </svg>
       </div>
@@ -1928,6 +2071,11 @@ html,body{background:var(--bg);min-height:100vh}
   </div>
   <div class="ptab-content" id="ptcontent-a-tool">
     <div class="callout" style="border-color:var(--s)"><strong>Work through the questions below</strong> to identify the appropriate statistical test. Starts with measurement level.</div>
+    <div id="stats-current-test" class="callout" style="border-color:var(--d);background:var(--dl);display:none;margin-top:.75rem">
+      <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--d)">Currently in your Blueprint</span><br>
+      <span class="sct-name" style="font-size:14px;font-weight:600;color:var(--tx)"></span>
+      <span style="font-size:12px;color:var(--tx2);display:block;margin-top:2px">Run the flow again to change your selection.</span>
+    </div>
     <div class="flow" id="flow"></div>
     <div class="ares" id="ares"></div>
     <button class="flow-reset" id="flow-reset" onclick="resetFlow()"><i class="ti ti-refresh"></i>Start over</button>
@@ -1945,54 +2093,48 @@ html,body{background:var(--bg);min-height:100vh}
       <div class="sg-card sg-wide">
         <div class="sg-title">Effect Size (Cohen's d) — Small, Medium, and Large</div>
         <div class="sg-desc">Effect size shows how much the group distributions overlap. Larger d = less overlap = more meaningful difference.</div>
-        <svg viewBox="0 0 560 155" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 560 155" xmlns="http://www.w3.org/2000/svg" aria-label="Three pairs of smooth bell curves showing small medium and large effect sizes">
           <defs>
-            <clipPath id="clip-es"><rect x="0" y="0" width="560" height="145"/></clipPath>
+            <clipPath id="clip-es-s"><rect x="10" y="0" width="165" height="145"/></clipPath>
+            <clipPath id="clip-es-m"><rect x="188" y="0" width="182" height="145"/></clipPath>
+            <clipPath id="clip-es-l"><rect x="374" y="0" width="180" height="145"/></clipPath>
           </defs>
-          <!-- SMALL d=0.20 -->
+          <!-- SMALL d=0.2 -->
           <text x="93" y="14" font-size="11" fill="#444" text-anchor="middle" font-family="sans-serif" font-weight="700">Small  d = .20</text>
-          <line x1="15" y1="128" x2="175" y2="128" stroke="#ddd" stroke-width="1"/>
-          <!-- Group 1 fill -->
-          <path d="M 20,128 C 35,128 52,32 80,32 C 108,128 125,128 140,128 Z" fill="#0b6b55" fill-opacity="0.18" clip-path="url(#clip-es)"/>
-          <!-- Group 2 fill -->
-          <path d="M 32,128 C 47,128 64,32 92,32 C 120,128 137,128 152,128 Z" fill="#6b1b6b" fill-opacity="0.18" clip-path="url(#clip-es)"/>
-          <!-- Overlap shaded darker -->
-          <path d="M 32,128 C 47,128 64,32 80,32 C 96,128 115,128 130,128 Z" fill="#888" fill-opacity="0.14" clip-path="url(#clip-es)"/>
-          <path d="M 20,128 C 35,128 52,32 80,32 C 108,128 125,128 140,128" fill="none" stroke="#0b6b55" stroke-width="2" clip-path="url(#clip-es)"/>
-          <path d="M 32,128 C 47,128 64,32 92,32 C 120,128 137,128 152,128" fill="none" stroke="#6b1b6b" stroke-width="2" clip-path="url(#clip-es)"/>
-          <line x1="80" y1="32" x2="80" y2="128" stroke="#0b6b55" stroke-width="1.2" stroke-dasharray="3,2"/>
-          <line x1="92" y1="32" x2="92" y2="128" stroke="#6b1b6b" stroke-width="1.2" stroke-dasharray="3,2"/>
-          <text x="93" y="142" font-size="9" fill="#888" text-anchor="middle" font-family="sans-serif">~85% overlap</text>
-
-          <!-- MEDIUM d=0.50 -->
-          <text x="280" y="14" font-size="11" fill="#444" text-anchor="middle" font-family="sans-serif" font-weight="700">Medium  d = .50</text>
-          <line x1="202" y1="128" x2="362" y2="128" stroke="#ddd" stroke-width="1"/>
-          <path d="M 205,128 C 220,128 237,32 265,32 C 293,128 310,128 325,128 Z" fill="#0b6b55" fill-opacity="0.2" clip-path="url(#clip-es)"/>
-          <path d="M 230,128 C 245,128 262,32 295,32 C 325,128 340,128 355,128 Z" fill="#6b1b6b" fill-opacity="0.2" clip-path="url(#clip-es)"/>
-          <path d="M 205,128 C 220,128 237,32 265,32 C 293,128 310,128 325,128" fill="none" stroke="#0b6b55" stroke-width="2" clip-path="url(#clip-es)"/>
-          <path d="M 230,128 C 245,128 262,32 295,32 C 325,128 340,128 355,128" fill="none" stroke="#6b1b6b" stroke-width="2" clip-path="url(#clip-es)"/>
-          <line x1="265" y1="32" x2="265" y2="128" stroke="#0b6b55" stroke-width="1.2" stroke-dasharray="3,2"/>
-          <line x1="295" y1="32" x2="295" y2="128" stroke="#6b1b6b" stroke-width="1.2" stroke-dasharray="3,2"/>
-          <text x="280" y="142" font-size="9" fill="#888" text-anchor="middle" font-family="sans-serif">~67% overlap</text>
-
-          <!-- LARGE d=0.80 -->
-          <text x="467" y="14" font-size="11" fill="#444" text-anchor="middle" font-family="sans-serif" font-weight="700">Large  d = .80</text>
-          <line x1="390" y1="128" x2="550" y2="128" stroke="#ddd" stroke-width="1"/>
-          <path d="M 392,128 C 407,128 424,32 452,32 C 480,128 497,128 512,128 Z" fill="#0b6b55" fill-opacity="0.22" clip-path="url(#clip-es)"/>
-          <path d="M 430,128 C 445,128 462,32 498,32 C 530,128 543,128 555,128 Z" fill="#6b1b6b" fill-opacity="0.22" clip-path="url(#clip-es)"/>
-          <path d="M 392,128 C 407,128 424,32 452,32 C 480,128 497,128 512,128" fill="none" stroke="#0b6b55" stroke-width="2" clip-path="url(#clip-es)"/>
-          <path d="M 430,128 C 445,128 462,32 498,32 C 530,128 543,128 555,128" fill="none" stroke="#6b1b6b" stroke-width="2" clip-path="url(#clip-es)"/>
-          <line x1="452" y1="32" x2="452" y2="128" stroke="#0b6b55" stroke-width="1.2" stroke-dasharray="3,2"/>
-          <line x1="498" y1="32" x2="498" y2="128" stroke="#6b1b6b" stroke-width="1.2" stroke-dasharray="3,2"/>
-          <text x="467" y="142" font-size="9" fill="#888" text-anchor="middle" font-family="sans-serif">~47% overlap</text>
-
-          <!-- Dividers between sections -->
-          <line x1="186" y1="10" x2="186" y2="130" stroke="#eee" stroke-width="1.5"/>
-          <line x1="374" y1="10" x2="374" y2="130" stroke="#eee" stroke-width="1.5"/>
-
+          <line x1="15" y1="130" x2="175" y2="130" stroke="#ddd" stroke-width="1"/>
+          <polygon points="10,129.1 10,127.8 10,125.2 19.0,120.6 28.0,113.2 37.0,102.4 46.0,88.6 55.0,73.3 64.0,59.0 73.0,48.7 82.0,45.0 91.0,48.7 100.0,59.0 109.0,73.3 118.0,88.6 127.0,102.4 136.0,113.2 145.0,120.6 154.0,125.2 163.0,127.8 172.0,129.1 172.0,130 10,130" fill="#0b6b55" fill-opacity="0.18" clip-path="url(#clip-es-s)"/>
+          <polygon points="12.0,129.1 21.0,127.8 30.0,125.2 39.0,120.6 48.0,113.2 57.0,102.4 66.0,88.6 75.0,73.3 84.0,59.0 93.0,48.7 102.0,45.0 111.0,48.7 120.0,59.0 129.0,73.3 138.0,88.6 147.0,102.4 156.0,113.2 165.0,120.6 174.0,125.2 175,127.8 175,129.1 175,130 12.0,130" fill="#6b1b6b" fill-opacity="0.18" clip-path="url(#clip-es-s)"/>
+          <polyline points="10,129.1 10,127.8 10,125.2 19.0,120.6 28.0,113.2 37.0,102.4 46.0,88.6 55.0,73.3 64.0,59.0 73.0,48.7 82.0,45.0 91.0,48.7 100.0,59.0 109.0,73.3 118.0,88.6 127.0,102.4 136.0,113.2 145.0,120.6 154.0,125.2 163.0,127.8 172.0,129.1" fill="none" stroke="#0b6b55" stroke-width="2" clip-path="url(#clip-es-s)"/>
+          <polyline points="12.0,129.1 21.0,127.8 30.0,125.2 39.0,120.6 48.0,113.2 57.0,102.4 66.0,88.6 75.0,73.3 84.0,59.0 93.0,48.7 102.0,45.0 111.0,48.7 120.0,59.0 129.0,73.3 138.0,88.6 147.0,102.4 156.0,113.2 165.0,120.6 174.0,125.2 175,127.8 175,129.1" fill="none" stroke="#6b1b6b" stroke-width="2" clip-path="url(#clip-es-s)"/>
+          <line x1="82" y1="45" x2="82" y2="130" stroke="#0b6b55" stroke-width="1.2" stroke-dasharray="3,2"/>
+          <line x1="102" y1="45" x2="102" y2="130" stroke="#6b1b6b" stroke-width="1.2" stroke-dasharray="3,2"/>
+          <text x="93" y="143" font-size="9" fill="#888" text-anchor="middle" font-family="sans-serif">~85% overlap</text>
+          <!-- MEDIUM d=0.5 -->
+          <text x="279" y="14" font-size="11" fill="#444" text-anchor="middle" font-family="sans-serif" font-weight="700">Medium  d = .50</text>
+          <line x1="192" y1="130" x2="366" y2="130" stroke="#ddd" stroke-width="1"/>
+          <polygon points="188,129.1 188,127.8 188,125.2 188,120.6 194.0,113.2 203.0,102.4 212.0,88.6 221.0,73.3 230.0,59.0 239.0,48.7 248.0,45.0 257.0,48.7 266.0,59.0 275.0,73.3 284.0,88.6 293.0,102.4 302.0,113.2 311.0,120.6 320.0,125.2 329.0,127.8 338.0,129.1 338.0,130 188,130" fill="#0b6b55" fill-opacity="0.20" clip-path="url(#clip-es-m)"/>
+          <polygon points="210.0,129.1 219.0,127.8 228.0,125.2 237.0,120.6 246.0,113.2 255.0,102.4 264.0,88.6 273.0,73.3 282.0,59.0 291.0,48.7 300.0,45.0 309.0,48.7 318.0,59.0 327.0,73.3 336.0,88.6 345.0,102.4 354.0,113.2 363.0,120.6 372.0,125.2 374,127.8 374,129.1 374,130 210.0,130" fill="#6b1b6b" fill-opacity="0.20" clip-path="url(#clip-es-m)"/>
+          <polyline points="188,129.1 188,127.8 188,125.2 188,120.6 194.0,113.2 203.0,102.4 212.0,88.6 221.0,73.3 230.0,59.0 239.0,48.7 248.0,45.0 257.0,48.7 266.0,59.0 275.0,73.3 284.0,88.6 293.0,102.4 302.0,113.2 311.0,120.6 320.0,125.2 329.0,127.8 338.0,129.1" fill="none" stroke="#0b6b55" stroke-width="2" clip-path="url(#clip-es-m)"/>
+          <polyline points="210.0,129.1 219.0,127.8 228.0,125.2 237.0,120.6 246.0,113.2 255.0,102.4 264.0,88.6 273.0,73.3 282.0,59.0 291.0,48.7 300.0,45.0 309.0,48.7 318.0,59.0 327.0,73.3 336.0,88.6 345.0,102.4 354.0,113.2 363.0,120.6 372.0,125.2 374,127.8 374,129.1" fill="none" stroke="#6b1b6b" stroke-width="2" clip-path="url(#clip-es-m)"/>
+          <line x1="248" y1="45" x2="248" y2="130" stroke="#0b6b55" stroke-width="1.2" stroke-dasharray="3,2"/>
+          <line x1="300" y1="45" x2="300" y2="130" stroke="#6b1b6b" stroke-width="1.2" stroke-dasharray="3,2"/>
+          <text x="279" y="143" font-size="9" fill="#888" text-anchor="middle" font-family="sans-serif">~67% overlap</text>
+          <!-- LARGE d=0.8 -->
+          <text x="463" y="14" font-size="11" fill="#444" text-anchor="middle" font-family="sans-serif" font-weight="700">Large  d = .80</text>
+          <line x1="378" y1="130" x2="548" y2="130" stroke="#ddd" stroke-width="1"/>
+          <polygon points="374,129.1 374,127.8 374,125.2 374,120.6 374,113.2 375.0,102.4 384.0,88.6 393.0,73.3 402.0,59.0 411.0,48.7 420.0,45.0 429.0,48.7 438.0,59.0 447.0,73.3 456.0,88.6 465.0,102.4 474.0,113.2 483.0,120.6 492.0,125.2 501.0,127.8 510.0,129.1 510.0,130 374,130" fill="#0b6b55" fill-opacity="0.22" clip-path="url(#clip-es-l)"/>
+          <polygon points="402.0,129.1 411.0,127.8 420.0,125.2 429.0,120.6 438.0,113.2 447.0,102.4 456.0,88.6 465.0,73.3 474.0,59.0 483.0,48.7 492.0,45.0 501.0,48.7 510.0,59.0 519.0,73.3 528.0,88.6 537.0,102.4 546.0,113.2 550,120.6 550,125.2 550,127.8 550,129.1 550,130 402.0,130" fill="#6b1b6b" fill-opacity="0.22" clip-path="url(#clip-es-l)"/>
+          <polyline points="374,129.1 374,127.8 374,125.2 374,120.6 374,113.2 375.0,102.4 384.0,88.6 393.0,73.3 402.0,59.0 411.0,48.7 420.0,45.0 429.0,48.7 438.0,59.0 447.0,73.3 456.0,88.6 465.0,102.4 474.0,113.2 483.0,120.6 492.0,125.2 501.0,127.8 510.0,129.1" fill="none" stroke="#0b6b55" stroke-width="2" clip-path="url(#clip-es-l)"/>
+          <polyline points="402.0,129.1 411.0,127.8 420.0,125.2 429.0,120.6 438.0,113.2 447.0,102.4 456.0,88.6 465.0,73.3 474.0,59.0 483.0,48.7 492.0,45.0 501.0,48.7 510.0,59.0 519.0,73.3 528.0,88.6 537.0,102.4 546.0,113.2 550,120.6 550,125.2 550,127.8 550,129.1" fill="none" stroke="#6b1b6b" stroke-width="2" clip-path="url(#clip-es-l)"/>
+          <line x1="420" y1="45" x2="420" y2="130" stroke="#0b6b55" stroke-width="1.2" stroke-dasharray="3,2"/>
+          <line x1="492" y1="45" x2="492" y2="130" stroke="#6b1b6b" stroke-width="1.2" stroke-dasharray="3,2"/>
+          <text x="463" y="143" font-size="9" fill="#888" text-anchor="middle" font-family="sans-serif">~47% overlap</text>
+          <!-- Dividers -->
+          <line x1="186" y1="10" x2="186" y2="132" stroke="#eee" stroke-width="1.5"/>
+          <line x1="374" y1="10" x2="374" y2="132" stroke="#eee" stroke-width="1.5"/>
           <!-- Legend -->
-          <line x1="215" y1="152" x2="232" y2="152" stroke="#0b6b55" stroke-width="2"/>
-          <text x="235" y="155" font-size="9" fill="#0b6b55" font-family="sans-serif">Control / Group 1</text>
+          <line x1="195" y1="152" x2="212" y2="152" stroke="#0b6b55" stroke-width="2"/>
+          <text x="215" y="155" font-size="9" fill="#0b6b55" font-family="sans-serif">Control / Group 1</text>
           <line x1="322" y1="152" x2="339" y2="152" stroke="#6b1b6b" stroke-width="2"/>
           <text x="342" y="155" font-size="9" fill="#6b1b6b" font-family="sans-serif">Treatment / Group 2</text>
         </svg>
@@ -2136,6 +2278,9 @@ html,body{background:var(--bg);min-height:100vh}
 
 
 
+
+
+
 const S={
   mode:'study',approach:null,design:null,singleSubject:null,qualDesign:null,mixedDesign:null,
   reliability:[],validity:[],sampling:null,analysis:null,threats:[],effectSizes:[],
@@ -2267,7 +2412,8 @@ const A_STEPS=[
   {id:'q1',lbl:'Step 2',q:'What is the primary purpose of your research question?',opts:[
     {id:'compare',icon:'ti-git-branch',t:'Compare groups or conditions on a measured outcome',s:'You are looking for differences in means across groups or time points.'},
     {id:'relate',icon:'ti-arrows-right-left',t:'Examine a relationship between two continuous variables',s:'You want to know whether and how variables are associated.'},
-    {id:'categorize',icon:'ti-table',t:'Describe frequency or association between categories',s:'Your variables are categorical — examining frequency patterns or associations.'}
+    {id:'categorize',icon:'ti-table',t:'Describe frequency or association between categories',s:'Your variables are categorical — examining frequency patterns or associations.'},
+    {id:'describe',icon:'ti-chart-histogram',t:'Describe a single variable (univariate)',s:'Summarize one variable at a time — central tendency, variability, and distribution shape.'}
   ]},
   {id:'q1_np',lbl:'Step 2',q:'What is the primary purpose of your research question?',opts:[
     {id:'np_two',icon:'ti-divide',t:'Compare two groups or conditions',s:'e.g., treatment vs. control with ordinal or non-normal outcome'},
@@ -2311,7 +2457,8 @@ const RESULTS={
   np_paired:{name:'Wilcoxon Signed-Rank Test',desc:'Non-parametric alternative to the paired t-test. Compares matched pairs or repeated measures on ordinal data.',when:'Same participants at two time points; ordinal DV or non-normal continuous DV.',ex:'Comparing pre- and post-treatment severity ratings for adults who stutter.',note:'More powerful than sign test; less powerful than paired t-test when normality holds. Report W statistic and effect size r.'},
   np_three:{name:'Kruskal-Wallis H Test',desc:'Non-parametric alternative to one-way ANOVA. Compares rank distributions across three or more independent groups.',when:'3+ independent groups; ordinal DV or non-normal continuous outcome.',ex:'Comparing functional communication ratings across three diagnostic groups.',note:"A significant H indicates at least one group differs — follow with Dunn's post-hoc test. Effect size: η² = (H − k + 1) / (n − k)."},
   np_relate:{name:"Spearman's Rank Correlation (ρ)",desc:'Non-parametric correlation measuring the strength and direction of monotonic relationship between two ranked variables.',when:'Two ordinal variables or non-normally distributed continuous variables.',ex:"Examining the correlation between clinician-rated severity and client self-rating of communication confidence.",note:'ρ ranges −1 to +1. Same interpretation benchmarks as Pearson r. Does not assume linearity — only monotonic relationship.'},
-  np_cat:{name:'Chi-Square Test (χ²)',desc:'Tests association between two categorical (nominal) variables by comparing observed vs. expected frequencies.',when:'Two categorical variables — counts/proportions.',ex:'Is there an association between communication disorder type and school placement category?',note:"Expected cell frequency ≥ 5 for each cell. With small samples, use Fisher's Exact Test. Effect size: Cramér's V."}
+  np_cat:{name:'Chi-Square Test (χ²)',desc:'Tests association between two categorical (nominal) variables by comparing observed vs. expected frequencies.',when:'Two categorical variables — counts/proportions.',ex:'Is there an association between communication disorder type and school placement category?',note:"Expected cell frequency ≥ 5 for each cell. With small samples, use Fisher's Exact Test. Effect size: Cramér's V."},
+univariate:{name:'Univariate / Descriptive Analysis',desc:'Summarize a single variable at a time using descriptive statistics matched to its measurement level — central tendency (mean, median, mode), variability (SD, range, IQR), and distribution shape (frequency tables, histograms, skewness).',when:'Every study reports univariate statistics first. Use them to describe your sample, screen for outliers and skew, and verify parametric assumptions before any inferential testing.',ex:'Reporting M = 68.4 (SD = 12.1) for PCC across the sample; a frequency table of participants by severity category; checking distribution shape before choosing a t-test vs. Mann-Whitney U.',note:'Match the statistic to the measurement level: mode for nominal, median + IQR for ordinal or skewed data, mean + SD for normally distributed interval/ratio data. See the Univariate section in the Study tab for the full reference table.'}
 };
 
 const RQ_TYPES=[
@@ -2420,7 +2567,7 @@ const BUILDER_REQUIRED=[
   {id:'b-design',lbl:'Research Design',ico:'ti-flask',check:()=>!!(S.design||S.qualDesign||S.mixedDesign),summary:()=>{const d=[...DESIGNS,...QUAL_DESIGNS,...MIXED_DESIGNS].find(x=>x.id===(S.design||S.qualDesign||S.mixedDesign));return d?d.title:''},panel:'d'},
   {id:'b-pop',lbl:'Target Population',ico:'ti-users',check:()=>!!S.checklist['c12'],summary:()=>'Population defined ✓',panel:'cl'},
   {id:'b-samp',lbl:'Sampling Strategy',ico:'ti-users-group',check:()=>!!S.sampling,summary:()=>{const s=[...SAMP_P,...SAMP_NP].find(x=>x.id===S.sampling);return s?s.title:''},panel:'s'},
-  {id:'b-stat',lbl:'Statistical Test',ico:'ti-chart-bar',check:()=>!!(S.analysis&&(RESULTS[S.analysis]||NP_RESULTS[S.analysis])),summary:()=>{const r=RESULTS[S.analysis]||NP_RESULTS[S.analysis];return r?r.name:''},panel:'a'},
+  {id:'b-stat',lbl:'Analysis Plan',ico:'ti-chart-bar',check:()=>!!(S.analysis&&(RESULTS[S.analysis]||NP_RESULTS[S.analysis])),summary:()=>{const r=RESULTS[S.analysis]||NP_RESULTS[S.analysis];return r?r.name:''},panel:'a'},
   {id:'b-irb',lbl:'IRB Review Category',ico:'ti-shield-check',check:()=>!!S.checklist['c25'],summary:()=>'Review category identified ✓',panel:'cl'},
   {id:'b-citi',lbl:'CITI Training',ico:'ti-school',check:()=>!!S.checklist['c29'],summary:()=>'CITI training planned ✓',panel:'cl'}
 ];
@@ -2452,7 +2599,7 @@ const BP_DEFS=[
   {id:'validity',lbl:'Validity',ico:'ti-certificate',cc:'var(--v)',ccl:'var(--vl)',type:'multi',src:()=>VALIDITY},
   {id:'sampling',lbl:'Sampling Strategy',ico:'ti-users-group',cc:'var(--s)',ccl:'var(--sl)',type:'single',src:()=>[...SAMP_P,...SAMP_NP]},
   {id:'threats',lbl:'Threats to Address',ico:'ti-alert-triangle',cc:'var(--a)',ccl:'var(--al)',type:'threats'},
-  {id:'analysis',lbl:'Statistical Test',ico:'ti-chart-bar',cc:'var(--s)',ccl:'var(--sl)',type:'analysis'},
+  {id:'analysis',lbl:'Analysis Plan',ico:'ti-chart-bar',cc:'var(--s)',ccl:'var(--sl)',type:'analysis'},
   {id:'effectSizes',lbl:'Effect Size Plan',ico:'ti-zoom-in',cc:'var(--s)',ccl:'var(--sl)',type:'multi',src:()=>EF_SIZES.map(e=>({...e,title:e.name,desc:`${e.use} · ${e.benches.map(b=>b.s+'='+b.v).join(', ')}`}))},
   {id:'checklist',lbl:'Proposal Checklist',ico:'ti-checks',cc:'var(--d)',ccl:'var(--dl)',type:'checklist'}
 ];
@@ -2593,6 +2740,9 @@ const GLOSSARY=[
   {t:'Descriptive Research',d:'A non-experimental design that describes the characteristics, frequency, or distribution of a phenomenon in a population. Includes surveys, normative studies, and observational research. Does not test hypotheses about cause and effect.'},
   {t:'Cohort Study',d:'A longitudinal design that identifies a group of participants (cohort) sharing a common characteristic and follows them over time to track outcomes of interest. Can be prospective (forward-looking) or retrospective. Used in CSD to examine developmental trajectories and long-term outcomes.'},
   {t:'Causal Inference',d:'The process of concluding that one variable (the IV) caused a change in another (the DV). Requires three conditions: (1) association between IV and DV, (2) temporal precedence (IV precedes DV), and (3) elimination of alternative explanations. True experiments with random assignment provide the strongest basis for causal inference.'},
+  {t:'Cohen\'s d',d:'The most common standardized effect size for mean comparisons. Expresses the difference between two group means in standard deviation units. Benchmarks: small = .20, medium = .50, large = .80. Report alongside every t-test.'},
+  {t:'Eta-Squared',d:'The effect size for ANOVA, representing the proportion of total variance in the DV explained by the IV. Benchmarks: small = .01, medium = .06, large = .14. Partial eta-squared is reported for factorial designs.'},
+  {t:'Test-Retest Reliability',d:'The stability of scores when the same measure is administered to the same participants at two different time points. Assessed with Pearson r or ICC. Essential for measures used to track change over time.'},
 ].sort((a,b)=>a.t.localeCompare(b.t));
 
 // ── FLOW STATE ────────────────────────────────────────────
@@ -2619,7 +2769,7 @@ function switchPanelTab(panelId, tab){
 }
 
 function updateAllPanelTabs(defaultTab){
-  const tabbedPanels=['qf','qm','d','tv','vars','rv','s','a','ef','pa','irb'];
+  const tabbedPanels=['qf','qm','d','tv','vars','rv','s','a','ef','pa','irb','bool'];
   tabbedPanels.forEach(pid=>{
     // only update if not manually overridden, or if this is a fresh mode switch
     switchPanelTab(pid, defaultTab);
@@ -2666,6 +2816,7 @@ function showPanel(t){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   const panel=document.getElementById('panel-'+t);
   if(panel) panel.classList.add('on');
+  if(t==='bool') boolInit();
   document.querySelectorAll(`[data-t="${t}"]`).forEach(n=>n.classList.add('active'));
   const mc=document.getElementById('main-content');
   mc.classList.toggle('bp-active', t==='bp');
@@ -3214,8 +3365,7 @@ function buildFlow(){
     }
   } else {
     if(ar) ar.classList.remove('on');
-    if(reset) reset.classList.remove(flowVisible.length>1?'':'on');
-    if(flowVisible.length>1 && reset) reset.classList.add('on');
+    if(reset) reset.classList.toggle('on', flowVisible.length>1);
   }
 }
 
@@ -3272,6 +3422,7 @@ function getResultId(){
   const q1=flowPath['q1'];
   if(!q1) return null;
   if(q1==='categorize') return 'categorize';
+  if(q1==='describe') return 'univariate';
   if(q1==='relate'){
     const q2=flowPath['q2_relate'];
     if(q2==='describe_rel') return 'describe_rel';
@@ -3300,6 +3451,18 @@ function getResultId(){
 
 function useAnalysis(id){
   S.analysis=id;
+  // Update "currently selected" indicator in stats tool tab
+  const cur=document.getElementById('stats-current-test');
+  const r2=RESULTS[id]||NP_RESULTS[id];
+  if(cur){
+    if(r2){
+      cur.style.display='block';
+      const nm=cur.querySelector('.sct-name');
+      if(nm) nm.textContent=r2.name;
+    } else {
+      cur.style.display='none';
+    }
+  }
   const r=RESULTS[id]||NP_RESULTS[id];
   if(r){
     const btn=document.querySelector('.ares-btn');
@@ -3381,38 +3544,71 @@ function renderBlueprint(){
   if(!el) return;
   const sections=[];
 
+  // ── 1. Research Approach ──────────────────────────────
+  const approachNames={'quant':'Quantitative','qual':'Qualitative','mixed':'Mixed Methods'};
+  if(S.approach){
+    const aName=approachNames[S.approach]||S.approach;
+    sections.push({lbl:'Research Approach',ico:'ti-topology-star',cc:'var(--p)',items:[{name:aName+' Research',sub:S.approach==='quant'?'Focuses on measurement, comparison, and statistical inference.':S.approach==='qual'?'Focuses on meaning, experience, and rich description.':'Integrates quantitative and qualitative strands in a single study.'}]});
+  }
+
+  // ── 2. Problem Statement ──────────────────────────────
   if(S.problemStatement) sections.push({lbl:'Research Problem',ico:'ti-writing',cc:'var(--p)',items:[{sub:S.problemStatement}],type:'stmt'});
-  if(S.picoStmt) sections.push({lbl:'PICO Question',ico:'ti-help-octagon',cc:'var(--p)',items:[{sub:S.picoStmt}],type:'stmt'});
-  if(S.spiderStmt) sections.push({lbl:'SPIDER Statement',ico:'ti-search',cc:'var(--s)',items:[{sub:S.spiderStmt}],type:'stmt'});
-  if(S.h0) sections.push({lbl:'Hypotheses',ico:'ti-equal',cc:'var(--v)',items:[{name:'H₀ (Null)',sub:S.h0},{name:'H₁ (Alternative)',sub:S.h1Direction&&S.hypothesisDir==='directional'?S.h1Direction:generateH1()}]});
+
+  // ── 3. Research Framework (PICO / SPIDER) ─────────────
+  if(S.picoStmt) sections.push({lbl:'Research Framework — PICO',ico:'ti-help-octagon',cc:'var(--p)',items:[{sub:S.picoStmt}],type:'stmt'});
+  if(S.spiderStmt) sections.push({lbl:'Research Framework — SPIDER',ico:'ti-search',cc:'var(--s)',items:[{sub:S.spiderStmt}],type:'stmt'});
+
+  // ── 4. Research Question ──────────────────────────────
   if(S.rqOutput) sections.push({lbl:'Research Question',ico:'ti-pencil',cc:'var(--p)',items:[{sub:S.rqOutput}],type:'stmt'});
 
+  // ── 5. Hypotheses ─────────────────────────────────────
+  if(S.h0) sections.push({lbl:'Hypotheses',ico:'ti-equal',cc:'var(--v)',items:[{name:'H\u2080 (Null)',sub:S.h0},{name:'H\u2081 (Alternative)',sub:S.h1Direction&&S.hypothesisDir==='directional'?S.h1Direction:generateH1()}]});
+
+  // ── 6. Study Design ───────────────────────────────────
   const allDesigns=[...DESIGNS,...SS_DESIGNS,...QUAL_DESIGNS,...MIXED_DESIGNS];
   const designId=S.design||S.qualDesign||S.mixedDesign;
   if(designId||S.singleSubject){
     const items=[];
     if(designId){const d=allDesigns.find(x=>x.id===designId);if(d) items.push({name:d.title,sub:d.desc});}
-    if(S.singleSubject){const d=SS_DESIGNS.find(x=>x.id===S.singleSubject);if(d) items.push({name:d.title,sub:d.desc});}
-    sections.push({lbl:'Research Design',ico:'ti-flask',cc:'var(--d)',items});
+    if(S.singleSubject){const d=SS_DESIGNS.find(x=>x.id===S.singleSubject);if(d) items.push({name:d.title+' (SSED)',sub:d.desc});}
+    if(items.length) sections.push({lbl:'Study Design',ico:'ti-flask',cc:'var(--d)',ccl:'var(--dl)',items});
   }
-  if(S.approach) sections.push({lbl:'Research Approach',ico:'ti-topology-star',cc:'var(--d)',items:[{name:S.approach.charAt(0).toUpperCase()+S.approach.slice(1),sub:'Approach selected'}]});
-  if(S.variables.length>0) sections.push({lbl:'Study Variables',ico:'ti-variable',cc:'var(--d)',items:S.variables.map(v=>({name:`${v.name||'[unnamed]'} (${v.type})`,sub:`${v.level}${v.notes?' — '+v.notes:''}`}))});
-  if(S.sampling){const s=[...SAMP_P,...SAMP_NP].find(x=>x.id===S.sampling);if(s) sections.push({lbl:'Sampling Strategy',ico:'ti-users-group',cc:'var(--s)',items:[{name:s.title,sub:s.desc}]});}
-  if(S.reliability.length>0){const items=S.reliability.map(id=>{const r=RELIABILITY.find(x=>x.id===id);return r?{name:r.title,sub:r.desc}:null}).filter(Boolean);sections.push({lbl:'Reliability',ico:'ti-refresh',cc:'var(--r)',items});}
-  if(S.validity.length>0){const items=S.validity.map(id=>{const v=VALIDITY.find(x=>x.id===id);return v?{name:v.title,sub:v.desc}:null}).filter(Boolean);sections.push({lbl:'Validity',ico:'ti-certificate',cc:'var(--v)',items});}
-  if(S.analysis){const r=RESULTS[S.analysis]||NP_RESULTS[S.analysis];if(r) sections.push({lbl:'Statistical Test',ico:'ti-chart-bar',cc:'var(--s)',items:[{name:r.name,sub:r.desc}]});}
-  if(S.effectSizes.length>0){const items=S.effectSizes.map(id=>{const e=EF_SIZES.find(x=>x.id===id);return e?{name:`${e.symbol} — ${e.name}`,sub:e.use}:null}).filter(Boolean);sections.push({lbl:'Effect Size Plan',ico:'ti-zoom-in',cc:'var(--s)',items});}
-  if(S.threats.length>0){const items=S.threats.map(id=>{const t=THREATS.find(x=>x.id===id);return t?{name:t.name,sub:t.desc}:null}).filter(Boolean);sections.push({lbl:'Threats to Address',ico:'ti-alert-triangle',cc:'var(--a)',items});}
-  const reqDone=CL_DATA.flatMap(p=>p.items).filter(it=>it.req&&S.checklist[it.id]);
-  if(reqDone.length>0) sections.push({lbl:'Required Items Completed',ico:'ti-checks',cc:'var(--d)',items:reqDone.map(it=>({name:it.text,sub:'✓ Complete'}))});
 
-  const pct=sections.length?Math.min(100,Math.round(sections.length/BP_DEFS.length*100)):0;
-  const fill=document.getElementById('bp-fill');
-  const plbl=document.getElementById('bp-plbl');
-  if(fill) fill.style.width=pct+'%';
-  if(plbl) plbl.textContent=sections.length===0?'Nothing yet — use Study and Builder panels to make selections':sections.length+' sections assembled';
+  // ── 7. Variables ──────────────────────────────────────
+  if(S.variables.length>0){
+    const items=S.variables.map(v=>({name:`${v.name} (${v.type})`,sub:`${v.level||'?'} · ${v.op||'No operational definition added'}`}));
+    sections.push({lbl:'Variables',ico:'ti-variable',cc:'var(--d)',ccl:'var(--dl)',items});
+  }
 
-  if(sections.length===0){el.innerHTML=`<div style="text-align:center;padding:2rem;color:#4a6a9a;font-style:italic;font-size:14px">Selections from the Study and Builder panels will appear here automatically. Start with PICO, then Research Question and Design.</div>`;return;}
+  // ── 8. Sampling Plan ──────────────────────────────────
+  const allSamp=[...SAMP_P,...SAMP_NP];
+  if(S.sampling){const s=allSamp.find(x=>x.id===S.sampling);if(s) sections.push({lbl:'Sampling Plan',ico:'ti-users',cc:'var(--d)',ccl:'var(--dl)',items:[{name:s.title,sub:s.desc}]});}
+
+  // ── 9. Reliability & Validity ─────────────────────────
+  if(S.reliability.length>0||S.validity.length>0){
+    const items=[...S.reliability.map(id=>{const r=RELIABILITY.find(x=>x.id===id);return r?{name:r.title,sub:r.desc}:null;}),...S.validity.map(id=>{const v=VALIDITY.find(x=>x.id===id);return v?{name:v.title,sub:v.desc}:null;})].filter(Boolean);
+    if(items.length) sections.push({lbl:'Reliability & Validity',ico:'ti-refresh',cc:'var(--v)',ccl:'var(--vl)',items});
+  }
+
+  // ── 10. Analysis Plan ─────────────────────────────────
+  if(S.analysis){const r=RESULTS[S.analysis]||NP_RESULTS[S.analysis];if(r) sections.push({lbl:'Analysis Plan',ico:'ti-chart-bar',cc:'var(--s)',ccl:'var(--sl)',items:[{name:r.name,sub:r.desc}]});}
+
+  // ── 11. Effect Size ───────────────────────────────────
+  if(S.effectSizes.length>0){
+    const items=S.effectSizes.map(id=>{const e=EF_SIZES.find(x=>x.id===id);return e?{name:e.title,sub:e.desc}:null;}).filter(Boolean);
+    if(items.length) sections.push({lbl:'Effect Size',ico:'ti-zoom-in',cc:'var(--s)',ccl:'var(--sl)',items});
+  }
+
+  // ── 12. Threats to Validity ───────────────────────────
+  if(S.threats.length>0){
+    const tdata=TV_DATA||[];
+    const items=S.threats.map(id=>{const t=tdata.find(x=>x.id===id);return t?{name:t.title,sub:t.desc}:null;}).filter(Boolean);
+    if(items.length) sections.push({lbl:'Threats to Validity',ico:'ti-alert-triangle',cc:'var(--r)',ccl:'var(--rl)',items});
+  }
+
+  const MIN_REQ=6;
+  if(!sections.length){
+    el.innerHTML=`<div style="text-align:center;padding:2rem;color:#4a6a9a;font-style:italic;font-size:14px">Selections from the Study and Builder panels will appear here automatically. Start with PICO, then Research Question and Design.</div>`;return;}
 
   el.innerHTML=sections.map(sec=>{
     const items=sec.type==='stmt'?`<div class="bpitem"><div class="bp-stmt">${esc(sec.items[0].sub)}</div></div>`:
@@ -3420,14 +3616,26 @@ function renderBlueprint(){
         <div class="bpdot" style="background:${sec.ccl||'rgba(255,255,255,.1)'};color:${sec.cc};border:1.5px solid ${sec.cc}"><i class="ti ti-check" style="font-size:10px"></i></div>
         <div><div class="bpitem-name">${esc(it.name||'')}</div><div class="bpitem-sub">${esc(it.sub||'')}</div></div>
       </div>`).join('');
-    return `<div class="bpsec" style="border-left-color:${sec.cc}">
-      <div class="bpsec-hd"><i class="ti ${sec.ico} bpsec-ico" style="color:${sec.cc}"></i><span class="bpsec-title" style="color:${sec.cc}">${esc(sec.lbl)}</span></div>
+    return `<div class="bpsec">
+      <div class="bpsec-hd" style="color:${sec.cc}"><i class="ti ${sec.ico}"></i>${esc(sec.lbl)}</div>
       ${items}
     </div>`;
   }).join('');
+
+  const filled=sections.filter(s=>s.items&&s.items.length>0).length;
+  const fill=document.getElementById('bp-fill');
+  const plbl=document.getElementById('bp-plbl');
+  if(fill) fill.style.width=Math.min(100,Math.round(filled/MIN_REQ*100))+'%';
+  if(plbl) plbl.textContent=filled+' section'+(filled===1?'':'s')+' assembled';
+
+  // sync builder view
+  const fillB=document.getElementById('bp-fill-b');
+  const plblB=document.getElementById('bp-plbl-b');
+  if(fillB) fillB.style.width=Math.min(100,Math.round(filled/MIN_REQ*100))+'%';
+  if(plblB) plblB.textContent=filled+' of '+MIN_REQ+' required assembled';
 }
 
-// ── BUILDER ───────────────────────────────────────────────
+
 function renderBuilder(){
   const reqEl=document.getElementById('builder-required');
   const optEl=document.getElementById('builder-optional');
@@ -3632,9 +3840,11 @@ function updateH1Display(){
 function showGlossaryPopover(term, evt){
   evt.stopPropagation();
   // Try exact match first, then case-insensitive
+  const norm=s=>s.toLowerCase().replace(/[\u2019']/g,'');
   let entry = GLOSSARY.find(g=>g.t===term);
   if(!entry) entry = GLOSSARY.find(g=>g.t.toLowerCase()===term.toLowerCase());
-  if(!entry) entry = GLOSSARY.find(g=>g.t.toLowerCase().includes(term.toLowerCase()));
+  if(!entry) entry = GLOSSARY.find(g=>norm(g.t)===norm(term));
+  if(!entry) entry = GLOSSARY.find(g=>norm(g.t).includes(norm(term)));
   if(!entry) return;
   const pop=document.getElementById('gl-popover');
   document.getElementById('gl-pop-term').textContent=entry.t;
@@ -3669,6 +3879,169 @@ document.addEventListener('click',function(e){
   if(pop&&pop.classList.contains('on')&&!pop.contains(e.target)) pop.classList.remove('on');
 });
 
+
+
+function copyBlueprint(){
+  const title=document.getElementById('bp-title');
+  let text='MY RESEARCH BLUEPRINT\n';
+  if(title&&title.value) text+='Title: '+title.value+'\n';
+  text+='='.repeat(40)+'\n\n';
+  const secs=document.querySelectorAll('#bp-secs .bp-sec');
+  secs.forEach(sec=>{
+    const lbl=sec.querySelector('.bp-sec-lbl');
+    if(lbl) text+=lbl.textContent.trim().toUpperCase()+'\n';
+    sec.querySelectorAll('.bp-item').forEach(item=>{
+      const name=item.querySelector('.bp-item-name');
+      const sub=item.querySelector('.bp-item-sub');
+      if(name) text+='  • '+name.textContent.trim()+'\n';
+      if(sub) text+='    '+sub.textContent.trim()+'\n';
+    });
+    text+='\n';
+  });
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>{
+      const btn=document.querySelector('.bp-btn.sec');
+      if(btn){const orig=btn.innerHTML;btn.innerHTML='<i class="ti ti-check"></i>Copied!';setTimeout(()=>btn.innerHTML=orig,1800);}
+    }).catch(()=>fallbackCopy(text));
+  } else { fallbackCopy(text); }
+}
+
+function fallbackCopy(text){
+  const ta=document.createElement('textarea');
+  ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(ta);
+}
+
+
+// ── BOOLEAN SEARCH BUILDER ────────────────────────────────
+let boolGroups = [];
+let boolNotTerms = [];
+let boolNextId = 1;
+
+function boolInit(){
+  if(boolGroups.length) return; // already initialized
+  boolGroups = [
+    {id:boolNextId++, label:'Concept 1 (Population)', terms:[]},
+    {id:boolNextId++, label:'Concept 2 (Intervention)', terms:[]},
+    {id:boolNextId++, label:'Concept 3 (Outcome)', terms:[]}
+  ];
+  boolRenderAll();
+}
+
+function boolAddGroup(){
+  const n = boolGroups.length + 1;
+  boolGroups.push({id:boolNextId++, label:'Concept '+n, terms:[]});
+  boolRenderAll();
+}
+
+function boolRemoveGroup(id){
+  boolGroups = boolGroups.filter(g=>g.id!==id);
+  // re-number labels for unnamed groups
+  boolGroups.forEach((g,i)=>{ if(!g.userLabel) g.label='Concept '+(i+1); });
+  boolRenderAll();
+}
+
+function boolAddTerm(groupId, inputEl){
+  if(!inputEl||!inputEl.value.trim()) return;
+  const g = boolGroups.find(g=>g.id===groupId);
+  if(g){ g.terms.push(inputEl.value.trim()); inputEl.value=''; boolRenderAll(); }
+}
+
+function boolRemoveTerm(groupId, termIdx){
+  const g = boolGroups.find(g=>g.id===groupId);
+  if(g){ g.terms.splice(termIdx,1); boolRenderAll(); }
+}
+
+function boolAddNot(evt){
+  if(evt.key!=='Enter') return;
+  const inp = document.getElementById('bool-not-inp');
+  if(!inp||!inp.value.trim()) return;
+  boolNotTerms.push(inp.value.trim());
+  inp.value='';
+  boolRenderAll();
+}
+
+function boolRemoveNot(idx){
+  boolNotTerms.splice(idx,1);
+  boolRenderAll();
+}
+
+function boolQuote(term){
+  return term.includes(' ') ? '"'+term+'"' : term;
+}
+
+function boolGenerate(){
+  const parts = boolGroups
+    .filter(g=>g.terms.length>0)
+    .map(g=>{
+      const ts = g.terms.map(boolQuote);
+      return ts.length===1 ? ts[0] : '('+ts.join(' OR ')+')';
+    });
+  let str = parts.join(' AND ');
+  if(boolNotTerms.length>0){
+    const nts = boolNotTerms.map(boolQuote);
+    str += (str?' ':'') + 'NOT ('+ nts.join(' OR ')+')';
+  }
+  return str;
+}
+
+function boolRenderAll(){
+  const container = document.getElementById('bool-groups-container');
+  if(!container) return;
+  container.innerHTML = boolGroups.map(g=>`
+    <div class="bool-group" id="bgrp-${g.id}">
+      <div class="bool-group-hd">
+        <span class="bool-group-lbl">${esc(g.label)} <span class="bool-group-note">— join terms with OR</span></span>
+        <button class="bool-rm-btn" onclick="boolRemoveGroup(${g.id})"><i class="ti ti-trash"></i> Remove</button>
+      </div>
+      <div class="bool-tags">
+        ${g.terms.map((term,i)=>`<span class="bool-tag">${esc(term)}<span class="bool-tag-x" onclick="boolRemoveTerm(${g.id},${i})">&times;</span></span>`).join('')}
+      </div>
+      <input class="bool-inp" placeholder="Type a term and press Enter…" onkeydown="if(event.key==='Enter'){boolAddTerm(${g.id},this)}">
+    </div>
+  `).join('');
+  // NOT tags
+  const notTags = document.getElementById('bool-not-tags');
+  if(notTags) notTags.innerHTML = boolNotTerms.map((t,i)=>`<span class="bool-tag" style="border-color:var(--a);color:var(--a);background:var(--al)">${esc(t)}<span class="bool-tag-x" onclick="boolRemoveNot(${i})">&times;</span></span>`).join('');
+  // Output
+  const out = document.getElementById('bool-out-str');
+  if(out){
+    const str = boolGenerate();
+    out.innerHTML = str ? esc(str) : '<span class="bool-out-empty">Add terms above to generate your search string.</span>';
+  }
+}
+
+function boolPrefill(){
+  const pico = typeof S !== 'undefined' ? S.pico : null;
+  if(!pico||((!pico.p||!pico.p.trim())&&(!pico.i||!pico.i.trim()))){
+    alert('No PICO entries found. Fill in your PICO fields in the Question Framework panel first.');
+    return;
+  }
+  boolGroups = [];
+  if(pico.p&&pico.p.trim()) boolGroups.push({id:boolNextId++,label:'Population (P)',terms:[pico.p.trim()]});
+  if(pico.i&&pico.i.trim()) boolGroups.push({id:boolNextId++,label:'Intervention (I)',terms:[pico.i.trim()]});
+  if(pico.c&&pico.c.trim()) boolGroups.push({id:boolNextId++,label:'Comparison (C)',terms:[pico.c.trim()]});
+  if(pico.o&&pico.o.trim()) boolGroups.push({id:boolNextId++,label:'Outcome (O)',terms:[pico.o.trim()]});
+  boolRenderAll();
+}
+
+function boolReset(){
+  boolGroups=[]; boolNotTerms=[]; boolNextId=1;
+  boolInit();
+}
+
+function boolCopy(){
+  const str = boolGenerate();
+  if(!str){alert('Nothing to copy — add some terms first.');return;}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(str).then(()=>{
+      const btn=document.querySelector('.bool-copy-btn');
+      if(btn){const o=btn.innerHTML;btn.innerHTML='<i class="ti ti-check"></i>Copied!';setTimeout(()=>btn.innerHTML=o,1800);}
+    }).catch(()=>fallbackCopy(str));
+  } else { fallbackCopy(str); }
+}
 
 // ── IRB DECISION TREE ─────────────────────────────────────
 function irbTree(step, answer){
