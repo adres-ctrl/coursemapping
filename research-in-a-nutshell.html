@@ -677,7 +677,6 @@ html,body{background:var(--bg);min-height:100vh}
     <div class="sidebar-div"></div>
     <div class="nav-group-hd">Study Design</div>
     <button class="nav-item nd" data-t="d" onclick="showPanel('d')"><i class="ti ti-flask"></i>Research Designs<span class="nav-dot" id="dot-d"></span></button>
-    <button class="nav-item nd" data-t="tv" onclick="showPanel('tv')"><i class="ti ti-alert-triangle"></i>Threats to Validity<span class="nav-dot" id="dot-tv"></span></button>
     <button class="nav-item nd" data-t="vars" onclick="showPanel('vars')"><i class="ti ti-variable"></i>Variables<span class="nav-dot" id="dot-vars"></span></button>
     <button class="nav-item nd" data-t="s" onclick="showPanel('s')"><i class="ti ti-users"></i>Sampling<span class="nav-dot" id="dot-s"></span></button>
     <div class="sidebar-div"></div>
@@ -1212,36 +1211,6 @@ html,body{background:var(--bg);min-height:100vh}
 </div>
 
 <!-- ═══ THREATS TO VALIDITY ═══ -->
-<div id="panel-tv" class="panel">
-  <div class="sh"><div class="sh-eye" style="color:var(--d)">Study Design</div><h1 class="sh-h">Threats to Internal Validity</h1><p class="sh-sub">Learn what each threat means, then flag the ones relevant to your study.</p></div>
-  <div class="ptabs">
-    <button class="ptab-btn active tc-d" id="ptab-tv-study" onclick="switchPanelTab('tv','study')"><i class="ti ti-book-2"></i>Study</button>
-    <button class="ptab-btn tc-d" id="ptab-tv-tool" onclick="switchPanelTab('tv','tool')"><i class="ti ti-tool"></i>Tool</button>
-  </div>
-  <!-- Study -->
-  <div class="ptab-content on" id="ptcontent-tv-study">
-    <div class="callout" style="border-color:var(--d)"><strong>Internal validity threats</strong> are alternative explanations that could account for your results without implicating the IV. The goal is not to eliminate all threats — it is to (1) design your study to minimize the most serious ones and (2) acknowledge remaining threats honestly in your limitations section. Reviewers expect both.</div>
-    <div class="comp-wrap"><table class="comp-table">
-      <thead><tr><th>Threat</th><th>What it is</th><th>Most common in</th><th>Primary control strategy</th></tr></thead>
-      <tbody>
-        <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('History (Threat)',event)">History</span></td><td>External events between pre/post measurement</td><td>Pre-post designs without control group</td><td>Concurrent control group</td></tr>
-        <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Maturation',event)">Maturation</span></td><td>Natural changes over time independent of IV</td><td>Studies with children; long timelines</td><td>Age-matched control group</td></tr>
-        <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Testing Effects',event)">Testing Effects</span></td><td>Practice on pre-test improves post-test scores</td><td>Pre-post repeated measures</td><td>Alternate test forms; control group</td></tr>
-        <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Instrumentation',event)">Instrumentation</span></td><td>Changes in rater calibration or measurement procedures</td><td>Long data collection periods with subjective scoring</td><td>Monitor inter-rater reliability throughout</td></tr>
-        <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Statistical Regression',event)">Regression</span></td><td>Extreme scorers drift toward the mean on retest</td><td>Studies selecting participants for extreme scores</td><td>Avoid selecting solely on extreme scores; use random assignment</td></tr>
-        <tr><td style="font-weight:600">Selection Bias</td><td>Pre-existing differences between groups</td><td>All non-random assignment designs</td><td>Random assignment; matched groups; ANCOVA</td></tr>
-        <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Attrition',event)">Attrition</span></td><td>Differential dropout between conditions</td><td>Long-duration treatment studies</td><td>Report attrition by group; test for systematic differences</td></tr>
-        <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Diffusion of Treatment',event)">Diffusion</span></td><td>Control participants receive elements of treatment</td><td>Studies with participant contact across groups</td><td>Separate sites or time periods for conditions</td></tr>
-        <tr><td style="font-weight:600">Demand Characteristics</td><td>Participants change behavior because they know they are being observed</td><td>Observational studies; unblinded designs</td><td>Naturalistic settings; blind participants to hypothesis</td></tr>
-      </tbody>
-    </table></div>
-  </div>
-  <!-- Tool -->
-  <div class="ptab-content" id="ptcontent-tv-tool">
-    <div class="callout" style="border-color:var(--d)"><strong>Select the threats relevant to your study.</strong> Selected threats will appear in your Blueprint limitations section.</div>
-    <div id="threats-list"></div>
-  </div>
-</div>
 
 <!-- ═══ VARIABLES ═══ -->
 <div id="panel-vars" class="panel">
@@ -1353,6 +1322,24 @@ html,body{background:var(--bg);min-height:100vh}
       <div class="dartboard-card"><svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="45" r="38" fill="#f4f1eb" stroke="#ccc" stroke-width="1"/><circle cx="50" cy="45" r="26" fill="#e2f4ee" stroke="#0b6b55" stroke-width="1"/><circle cx="50" cy="45" r="14" fill="#0b6b55" fill-opacity="0.3" stroke="#0b6b55" stroke-width="1"/><circle cx="50" cy="45" r="5" fill="#0b6b55"/><circle cx="40" cy="36" r="3" fill="#1b3d8f"/><circle cx="62" cy="54" r="3" fill="#1b3d8f"/><circle cx="57" cy="34" r="3" fill="#1b3d8f"/><circle cx="36" cy="58" r="3" fill="#1b3d8f"/><circle cx="64" cy="40" r="3" fill="#1b3d8f"/></svg><div class="dartboard-label" style="color:var(--r)">Valid — NOT reliable</div><div class="dartboard-sub">Scattered around the right target.</div></div>
       <div class="dartboard-card"><svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="45" r="38" fill="#f4f1eb" stroke="#ccc" stroke-width="1"/><circle cx="50" cy="45" r="26" fill="#e8e4dc" stroke="#bbb" stroke-width="1"/><circle cx="50" cy="45" r="14" fill="#d0ccc4" stroke="#bbb" stroke-width="1"/><circle cx="50" cy="45" r="5" fill="#bbb"/><circle cx="28" cy="28" r="3" fill="#9c9890"/><circle cx="68" cy="32" r="3" fill="#9c9890"/><circle cx="72" cy="62" r="3" fill="#9c9890"/><circle cx="30" cy="68" r="3" fill="#9c9890"/><circle cx="50" cy="20" r="3" fill="#9c9890"/></svg><div class="dartboard-label" style="color:var(--tx3)">Neither reliable nor valid</div><div class="dartboard-sub">Scattered everywhere, missing the target.</div></div>
     </div>
+    <div class="rv-divider" style="margin-top:1.75rem"><div class="rv-divider-line"></div><div class="rv-divider-label" style="color:var(--r)">Threats to Validity</div><div class="rv-divider-line"></div></div>
+
+    <div class="callout" style="border-color:var(--d)"><strong>Internal validity threats</strong> are alternative explanations that could account for your results without implicating the IV. The goal is not to eliminate all threats — it is to (1) design your study to minimize the most serious ones and (2) acknowledge remaining threats honestly in your limitations section. Reviewers expect both.</div>
+    <div class="comp-wrap"><table class="comp-table">
+      <thead><tr><th>Threat</th><th>What it is</th><th>Most common in</th><th>Primary control strategy</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('History (Threat)',event)">History</span></td><td>External events between pre/post measurement</td><td>Pre-post designs without control group</td><td>Concurrent control group</td></tr>
+        <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Maturation',event)">Maturation</span></td><td>Natural changes over time independent of IV</td><td>Studies with children; long timelines</td><td>Age-matched control group</td></tr>
+        <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Testing Effects',event)">Testing Effects</span></td><td>Practice on pre-test improves post-test scores</td><td>Pre-post repeated measures</td><td>Alternate test forms; control group</td></tr>
+        <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Instrumentation',event)">Instrumentation</span></td><td>Changes in rater calibration or measurement procedures</td><td>Long data collection periods with subjective scoring</td><td>Monitor inter-rater reliability throughout</td></tr>
+        <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Statistical Regression',event)">Regression</span></td><td>Extreme scorers drift toward the mean on retest</td><td>Studies selecting participants for extreme scores</td><td>Avoid selecting solely on extreme scores; use random assignment</td></tr>
+        <tr><td style="font-weight:600">Selection Bias</td><td>Pre-existing differences between groups</td><td>All non-random assignment designs</td><td>Random assignment; matched groups; ANCOVA</td></tr>
+        <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Attrition',event)">Attrition</span></td><td>Differential dropout between conditions</td><td>Long-duration treatment studies</td><td>Report attrition by group; test for systematic differences</td></tr>
+        <tr><td style="font-weight:600"><span class="gl-link" onclick="showGlossaryPopover('Diffusion of Treatment',event)">Diffusion</span></td><td>Control participants receive elements of treatment</td><td>Studies with participant contact across groups</td><td>Separate sites or time periods for conditions</td></tr>
+        <tr><td style="font-weight:600">Demand Characteristics</td><td>Participants change behavior because they know they are being observed</td><td>Observational studies; unblinded designs</td><td>Naturalistic settings; blind participants to hypothesis</td></tr>
+      </tbody>
+    </table></div>
+  
   </div>
   <div class="ptab-content" id="ptcontent-rv-tool">
     <div class="callout" style="border-color:var(--v)"><strong>Select all types that apply to your study.</strong> Selections carry forward to the Blueprint.</div>
@@ -1361,6 +1348,11 @@ html,body{background:var(--bg);min-height:100vh}
     <div class="rv-divider" style="margin-top:2rem"><div class="rv-divider-line"></div><div class="rv-divider-label" style="color:var(--v)">Validity — Select all that apply</div><div class="rv-divider-line"></div></div>
     <div class="grid" id="grid-v"></div>
   </div>
+    <div class="rv-divider" style="margin-top:1.75rem"><div class="rv-divider-line"></div><div class="rv-divider-label" style="color:var(--r)">Threats to Validity — Select all that apply</div><div class="rv-divider-line"></div></div>
+
+    <div class="callout" style="border-color:var(--d)"><strong>Select the threats relevant to your study.</strong> Selected threats will appear in your Blueprint limitations section.</div>
+    <div id="threats-list"></div>
+  
 </div>
 
 <!-- ═══ SAMPLING ═══ -->
@@ -2281,6 +2273,7 @@ html,body{background:var(--bg);min-height:100vh}
 
 
 
+
 const S={
   mode:'study',approach:null,design:null,singleSubject:null,qualDesign:null,mixedDesign:null,
   reliability:[],validity:[],sampling:null,analysis:null,threats:[],effectSizes:[],
@@ -2582,7 +2575,7 @@ const BUILDER_OPTIONAL=[
   {id:'bo-rel',lbl:'Reliability Plan',ico:'ti-refresh',check:()=>S.reliability.length>0,panel:'rv'},
   {id:'bo-val',lbl:'Validity Evidence',ico:'ti-certificate',check:()=>S.validity.length>0,panel:'rv'},
   {id:'bo-ef',lbl:'Effect Size Plan',ico:'ti-zoom-in',check:()=>S.effectSizes.length>0,panel:'ef'},
-  {id:'bo-tv',lbl:'Threats to Validity',ico:'ti-alert-triangle',check:()=>S.threats.length>0,panel:'tv'},
+  {id:'bo-tv',lbl:'Threats to Validity',ico:'ti-alert-triangle',check:()=>S.threats.length>0,panel:'rv'},
   {id:'bo-consent',lbl:'Informed Consent Plan',ico:'ti-writing',check:()=>!!S.checklist['c26'],panel:'cl'},
   {id:'bo-data',lbl:'Data Security Plan',ico:'ti-lock',check:()=>!!S.checklist['c28'],panel:'cl'}
 ];
@@ -2769,7 +2762,7 @@ function switchPanelTab(panelId, tab){
 }
 
 function updateAllPanelTabs(defaultTab){
-  const tabbedPanels=['qf','qm','d','tv','vars','rv','s','a','ef','pa','irb','bool'];
+  const tabbedPanels=['qf','qm','d','vars','rv','s','a','ef','pa','irb','bool'];
   tabbedPanels.forEach(pid=>{
     // only update if not manually overridden, or if this is a fresh mode switch
     switchPanelTab(pid, defaultTab);
@@ -2957,7 +2950,7 @@ function renderAll(){
 function updateDots(){
   const map={
     qf:!!(S.picoStmt||S.spiderStmt||S.rqOutput), qm:!!S.approach,
-    d:!!(S.design||S.singleSubject), tv:S.threats.length>0,
+    d:!!(S.design||S.singleSubject), 
     vars:S.variables.length>0, rv:S.reliability.length>0||S.validity.length>0,
     s:!!S.sampling, a:!!(S.analysis&&(RESULTS[S.analysis]||NP_RESULTS[S.analysis])),
     ef:S.effectSizes.length>0, cl:Object.keys(S.checklist).length>0
@@ -3601,8 +3594,7 @@ function renderBlueprint(){
 
   // ── 12. Threats to Validity ───────────────────────────
   if(S.threats.length>0){
-    const tdata=TV_DATA||[];
-    const items=S.threats.map(id=>{const t=tdata.find(x=>x.id===id);return t?{name:t.title,sub:t.desc}:null;}).filter(Boolean);
+    const items=S.threats.map(id=>{const t=THREATS.find(x=>x.id===id);return t?{name:t.name,sub:t.desc}:null;}).filter(Boolean);
     if(items.length) sections.push({lbl:'Threats to Validity',ico:'ti-alert-triangle',cc:'var(--r)',ccl:'var(--rl)',items});
   }
 
