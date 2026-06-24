@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPA 3011 — Course Modules — Fall 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', Arial, sans-serif;
+    background: transparent;
+    color: #1a1a1a;
+    padding: 1rem;
+  }
+
+  img.banner {
+    display: block;
+    max-width: 100%;
+    width: auto;
+    max-height: 250px;
+    height: auto;
+    margin-bottom: 1.25rem;
+    border-radius: 4px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+
+  thead tr { background: #1a3a5c; }
+
+  thead th {
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  tbody tr { border-bottom: 1px solid #f0eeea; transition: background 0.15s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover:not(.active) { background: #fafaf8; }
+
+  td { padding: 10px 12px; font-size: 0.9rem; vertical-align: middle; }
+
+  td.wk {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #bbb;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    width: 64px;
+  }
+
+  td.ttl a {
+    color: #1a1a1a;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.15s;
+  }
+
+  td.ttl a:hover { color: #1a3a5c; text-decoration: underline; }
+
+  .second-link {
+    font-size: 0.78rem;
+    color: #999;
+    margin-left: 8px;
+    font-style: italic;
+  }
+
+  .second-link a {
+    color: #777;
+    text-decoration: none;
+  }
+
+  .second-link a:hover { text-decoration: underline; }
+
+  td.dt {
+    font-size: 0.75rem;
+    color: #bbb;
+  }
+
+  /* ── Active row ── */
+  tr.active {
+    background: #e8f0f8 !important;
+    outline: 2px solid #1a3a5c;
+    outline-offset: -2px;
+  }
+
+  tr.active td.wk { color: #1a3a5c; }
+
+  tr.active td.ttl a {
+    color: #1a3a5c;
+    font-weight: 700;
+  }
+
+  tr.active td.dt { color: #1a3a5c; }
+
+  .badge {
+    display: inline-block;
+    background: #1a3a5c;
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 20px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  @media (max-width: 500px) {
+    td { padding: 8px 8px; font-size: 0.82rem; }
+    td.dt { display: none; }
+    thead th:last-child { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<img class="banner"
+  src="https://webcourses.ucf.edu/courses/1512772/files/123148486/preview"
+  alt="SPA 3011 Course Banner" />
+
+<table>
+  <thead>
+    <tr>
+      <th>Week</th>
+      <th>Module Title</th>
+      <th>Dates</th>
+    </tr>
+  </thead>
+  <tbody id="moduleBody"></tbody>
+</table>
+
+<script>
+  // ─────────────────────────────────────────────────────
+  //  UPDATE DATES EACH SEMESTER — everything else is auto
+  //  Format: "YYYY-MM-DD"
+  // ─────────────────────────────────────────────────────
+  const modules = [
+    {
+      wk: "Wk 1",
+      title: "Introduction to Speech Science",
+      url: "https://webcourses.ucf.edu/courses/1515114/modules/3048984",
+      start: "2026-08-24", end: "2026-08-30"
+    },
+    {
+      wk: "Wk 2",
+      title: "The Nature of Sound and Waves",
+      url: "https://webcourses.ucf.edu/courses/1515114/modules/3048985",
+      start: "2026-08-31", end: "2026-09-06"
+    },
+    {
+      wk: "Wk 3",
+      title: "Labor Day Week",
+      url: null,
+      start: "2026-09-07", end: "2026-09-13"
+    },
+    {
+      wk: "Wk 4",
+      title: "Aerodynamic Energy",
+      url: "https://webcourses.ucf.edu/courses/1515114/modules/3048986",
+      start: "2026-09-14", end: "2026-09-20"
+    },
+    {
+      wk: "Wk 5",
+      title: "Fundamental Sources",
+      url: "https://webcourses.ucf.edu/courses/1515114/modules/3048987",
+      start: "2026-09-21", end: "2026-09-27"
+    },
+    {
+      wk: "Wk 6",
+      title: "Exam 1",
+      url: "https://webcourses.ucf.edu/courses/1515114/modules/3048988",
+      start: "2026-09-28", end: "2026-10-04"
+    },
+    {
+      wk: "Wk 7",
+      title: "Source Filter Theory",
+      url: "https://webcourses.ucf.edu/courses/1515114/modules/3048989",
+      start: "2026-10-05", end: "2026-10-11"
+    },
+    {
+      wk: "Wk 8",
+      title: "Multiple Source Sounds",
+      url: "https://webcourses.ucf.edu/courses/1515114/modules/3048990",
+      start: "2026-10-12", end: "2026-10-18"
+    },
+    {
+      wk: "Wk 9",
+      title: "Suprasegmentals",
+      url: "https://webcourses.ucf.edu/courses/1515114/modules/3048991",
+      start: "2026-10-19", end: "2026-10-25"
+    },
+    {
+      wk: "Wk 10",
+      title: "Exam 2",
+      url: "https://webcourses.ucf.edu/courses/1515114/modules/3048992",
+      start: "2026-10-26", end: "2026-11-01"
+    },
+    {
+      wk: "Wk 11",
+      title: "Transfers of Energy",
+      url: "https://webcourses.ucf.edu/courses/1515114/modules/3048993",
+      start: "2026-11-02", end: "2026-11-08"
+    },
+    {
+      wk: "Wk 12",
+      title: "Electrical Energy and Communication",
+      url: "https://webcourses.ucf.edu/courses/1515114/modules/3048994",
+      start: "2026-11-09", end: "2026-11-15"
+    },
+    {
+      wk: "Wk 13",
+      title: "Perception",
+      url: "https://webcourses.ucf.edu/courses/1515114/modules/3050502",
+      start: "2026-11-16", end: "2026-11-22"
+    },
+    {
+      wk: "Wk 14",
+      title: "Quantification of Speech Science",
+      url: "https://webcourses.ucf.edu/courses/1515114/modules/3048995",
+      start: "2026-11-23", end: "2026-11-29"
+    },
+    {
+      wk: "Wk 15",
+      title: "Clinical Applications & Review",
+      url: "https://webcourses.ucf.edu/courses/1515114/modules/3048997",
+      start: "2026-11-30", end: "2026-12-06"
+    },
+    {
+      wk: "Wk 16",
+      title: "Final Exam",
+      url: "https://webcourses.ucf.edu/courses/1515114/modules/3048998",
+      start: "2026-12-07", end: "2026-12-11"
+    },
+  ];
+  // ─────────────────────────────────────────────────────
+
+  function fmt(str) {
+    const [y, m, d] = str.split("-").map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  }
+
+  function build() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tbody = document.getElementById("moduleBody");
+    tbody.innerHTML = "";
+
+    modules.forEach(mod => {
+      const [sy, sm, sd] = mod.start.split("-").map(Number);
+      const [ey, em, ed] = mod.end.split("-").map(Number);
+      const s = new Date(sy, sm - 1, sd);
+      const e = new Date(ey, em - 1, ed);
+      e.setHours(23, 59, 59);
+
+      const current = today >= s && today <= e;
+      const tr = document.createElement("tr");
+      if (current) tr.classList.add("active");
+
+      const badge = current ? `<span class="badge">&#9654; This Week</span>` : "";
+
+      const second = mod.secondTitle
+        ? `<span class="second-link">&nbsp;|&nbsp;<a href="${mod.secondUrl}" target="_top">${mod.secondTitle}</a></span>`
+        : "";
+
+      const titleCell = mod.url
+        ? `<a href="${mod.url}" target="_top">${mod.title}</a>`
+        : `<span style="color:#bbb;font-style:italic;">${mod.title}</span>`;
+
+      tr.innerHTML = `
+        <td class="wk">${mod.wk}</td>
+        <td class="ttl">${titleCell}${second}${badge}</td>
+        <td class="dt">${fmt(mod.start)} – ${fmt(mod.end)}</td>
+      `;
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  build();
+</script>
+</body>
+</html>
