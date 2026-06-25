@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPA 3011 — Speech Science Lab Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    font-family: 'Exo 2', 'Segoe UI', sans-serif;
+    background: #0f2038;
+    color: #dce7f5;
+    overflow: hidden;
+  }
+
+  /* ── HEADER ── */
+  .hub-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 18px;
+    background: #0b1424;
+    border-bottom: 1px solid #162135;
+    flex-shrink: 0;
+  }
+  .ucf-badge {
+    background: #FFC904;
+    color: #000;
+    font-weight: 800;
+    font-size: 13px;
+    padding: 4px 9px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+  .hub-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #dce7f5;
+    line-height: 1.2;
+  }
+  .hub-sub {
+    font-size: 11px;
+    color: #8eb4d4;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── TAB BAR ── */
+  .tab-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 8px 12px 0;
+    background: #0b1424;
+    border-bottom: 2px solid #162135;
+    flex-shrink: 0;
+  }
+
+  .tab-btn {
+    padding: 7px 12px;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #8eb4d4;
+    background: #0f2038;
+    border: 1px solid #162135;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    transition: all 0.15s;
+    line-height: 1.3;
+    max-width: 160px;
+    text-align: center;
+    white-space: normal;
+    user-select: none;
+  }
+  .tab-btn:hover {
+    color: #dce7f5;
+    border-color: #2a4060;
+    background: #162135;
+  }
+  .tab-btn.active {
+    color: #FFC904;
+    background: #0f2038;
+    border-color: #FFC904;
+    border-bottom: 2px solid #0f2038;
+    margin-bottom: -2px;
+  }
+
+  /* ── IFRAME ── */
+  .iframe-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  #lab-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    background: #060c1a;
+  }
+
+  /* ── LAYOUT ── */
+  .page-shell {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  /* ── ERROR STATE ── */
+  .frame-error {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 100%;
+    color: #8eb4d4;
+    font-size: 14px;
+    text-align: center;
+    padding: 40px;
+  }
+  .frame-error a {
+    color: #4a9eff;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .frame-error a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="page-shell">
+
+  <!-- HEADER -->
+  <div class="hub-header">
+    <div class="ucf-badge">UCF</div>
+    <div>
+      <div class="hub-title">SPA 3011 — Speech Science</div>
+      <div class="hub-sub">Interactive Lab Suite</div>
+    </div>
+  </div>
+
+  <!-- TAB BAR -->
+  <div class="tab-bar">
+    <button class="tab-btn active"  onclick="loadLab(0)">Frequency, Amplitude &amp; Natural Frequency</button>
+    <button class="tab-btn"         onclick="loadLab(1)">Boyle&#39;s Law &amp; Respiratory Aerodynamics</button>
+    <button class="tab-btn"         onclick="loadLab(2)">Fundamental Source of Speech</button>
+    <button class="tab-btn"         onclick="loadLab(3)">Source Filter Theory</button>
+    <button class="tab-btn"         onclick="loadLab(4)">Transfers of Energy</button>
+    <button class="tab-btn"         onclick="loadLab(5)">Electrical Energy &amp; Communication</button>
+    <button class="tab-btn"         onclick="loadLab(6)">Consonant Features &amp; VOT</button>
+    <button class="tab-btn"         onclick="loadLab(7)">Prosody &amp; Intonation</button>
+    <button class="tab-btn"         onclick="loadLab(8)">Quantification of Speech</button>
+  </div>
+
+  <!-- IFRAME -->
+  <div class="iframe-wrap">
+    <iframe id="lab-frame" title="Lab Content"
+      src="https://adres-ctrl.github.io/SHSlabs/lab_wave_frequency.html"></iframe>
+  </div>
+
+</div>
+
+<script>
+  var BASE = 'https://adres-ctrl.github.io/SHSlabs/';
+
+  var LABS = [
+    'lab_wave_frequency.html',
+    'lab_boyles.html',
+    'lab_fundamental_source.html',
+    'lab_source_filter.html',
+    'lab_transfers_energy.html',
+    'lab_electrical_energy.html',
+    'lab_consonants.html',
+    'lab_prosody_intonation.html',
+    'lab_quantification.html'
+  ];
+
+  var activeIndex = 0;
+
+  function loadLab(index) {
+    if (index === activeIndex) return;
+    activeIndex = index;
+
+    var buttons = document.querySelectorAll('.tab-btn');
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].classList.toggle('active', i === index);
+    }
+
+    document.getElementById('lab-frame').src = BASE + LABS[index];
+  }
+</script>
+</body>
+</html>
