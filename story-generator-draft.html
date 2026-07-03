@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Story Generator - Language Comprehension Draft</title>
+<style>
+  :root {
+    --navy: #1b2a4a;
+    --navy-dark: #10192e;
+    --coral: #e8674f;
+    --gold: #d8ae4c;
+    --cream: #faf7f2;
+    --gray: #6b7280;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--cream);
+    color: var(--navy-dark);
+  }
+  header {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 24px 20px;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    letter-spacing: 0.5px;
+  }
+  header p {
+    margin: 6px 0 0;
+    font-size: 0.9rem;
+    color: #c9d2e3;
+    font-family: Arial, sans-serif;
+  }
+  .wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+  .card {
+    background: white;
+    border: 1px solid #e5ded0;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  label {
+    display: block;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 0.85rem;
+    color: var(--navy);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .q { margin-bottom: 20px; }
+  input[type=text], input[type=number], select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 1rem;
+    border: 1px solid #cfc6b3;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    background: var(--cream);
+  }
+  input:focus, select:focus {
+    outline: 2px solid var(--gold);
+    outline-offset: 1px;
+  }
+  .radio-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .radio-row label.opt {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: normal;
+    text-transform: none;
+    background: var(--cream);
+    border: 1px solid #cfc6b3;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    flex: 1;
+    min-width: 120px;
+  }
+  .radio-row input { margin: 0; }
+  button {
+    width: 100%;
+    background: var(--coral);
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 1.05rem;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+  }
+  button:hover { background: #d6553e; }
+  button.secondary {
+    background: var(--navy);
+    margin-top: 10px;
+  }
+  button.secondary:hover { background: var(--navy-dark); }
+  #results { display: none; }
+  .story-card {
+    border-left: 5px solid var(--gold);
+  }
+  .story-card h2 {
+    color: var(--navy);
+    font-size: 1.25rem;
+    margin-top: 0;
+  }
+  .story-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #2a2a2a;
+  }
+  .comp-questions {
+    margin-top: 18px;
+    border-top: 1px dashed #cfc6b3;
+    padding-top: 14px;
+    font-family: Arial, sans-serif;
+  }
+  .comp-questions h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--gray);
+    margin-bottom: 10px;
+  }
+  .comp-q {
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+  }
+  .comp-q .qtext { font-weight: bold; color: var(--navy-dark); }
+  .comp-q .opts { margin-top: 4px; color: #444; }
+  .comp-q .opts span { display: block; margin-left: 12px; }
+  .error {
+    color: var(--coral);
+    font-family: Arial, sans-serif;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Language Comprehension Story Generator</h1>
+  <p>Draft tool &mdash; enter a few details to create two tailored short stories</p>
+</header>
+
+<div class="wrap">
+
+  <div class="card" id="formCard">
+    <div class="q">
+      <label for="childName">1. Child's first name</label>
+      <input type="text" id="childName" placeholder="e.g., Maya">
+      <div class="error" id="err-name">Please enter a name.</div>
+    </div>
+
+    <div class="q">
+      <label for="childAge">2. Child's age</label>
+      <input type="number" id="childAge" min="3" max="12" placeholder="e.g., 7">
+      <div class="error" id="err-age">Please enter an age between 3 and 12.</div>
+    </div>
+
+    <div class="q">
+      <label>3. Current language / reading level</label>
+      <div class="radio-row">
+        <label class="opt"><input type="radio" name="level" value="emerging"> Emerging</label>
+        <label class="opt"><input type="radio" name="level" value="developing"> Developing</label>
+        <label class="opt"><input type="radio" name="level" value="proficient"> Proficient</label>
+      </div>
+      <div class="error" id="err-level">Please select a level.</div>
+    </div>
+
+    <div class="q">
+      <label for="topic">4. Favorite topic / interest</label>
+      <select id="topic">
+        <option value="animals">Animals</option>
+        <option value="space">Space</option>
+        <option value="ocean">Ocean</option>
+        <option value="sports">Sports</option>
+        <option value="vehicles">Trucks &amp; Vehicles</option>
+        <option value="fantasy">Dragons &amp; Fantasy</option>
+      </select>
+    </div>
+
+    <div class="q">
+      <label>5. Preferred story length</label>
+      <div class="radio-row">
+        <label class="opt"><input type="radio" name="length" value="short" checked> Short (~60 words)</label>
+        <label class="opt"><input type="radio" name="length" value="medium"> Medium (~120 words)</label>
+      </div>
+    </div>
+
+    <button onclick="generateStories()">Generate 2 Stories</button>
+  </div>
+
+  <div id="results"></div>
+
+</div>
+
+<script>
+// ---- Story content banks ----
+// Each topic has short and medium templates for each level.
+// {name} is replaced with child's name.
+
+const topics = {
+  animals: {
+    short: {
+      emerging: "{name} sees a dog. The dog is brown. The dog runs fast. The dog likes a red ball. {name} throws the ball. The dog jumps up high. {name} laughs and pets the dog.",
+      developing: "{name} walked to the park and saw a small brown dog chasing a red ball. The dog ran in circles, wagging its tail with excitement. {name} picked up the ball and threw it far across the grass. The dog dashed after it, caught it, and trotted back proudly. {name} smiled and gave the dog a gentle pat on the head.",
+      proficient: "On a warm afternoon, {name} noticed a scruffy brown dog darting after a bright red ball near the edge of the park. Every time the ball bounced, the dog's ears flopped and its tail whipped back and forth with pure delight. {name} decided to join in, tossing the ball as far as possible toward the old oak tree. The dog sprinted, skidded, and triumphantly returned with the ball clenched in its jaws, clearly hoping the game would continue."
+    },
+    medium: {
+      emerging: "{name} went to the farm. There were cows and pigs. The cow said moo. The pig was pink. {name} saw a red barn. Inside the barn was hay. A cat slept on the hay. {name} pet the soft cat. Then {name} saw a horse. The horse was brown and tall. {name} gave the horse an apple. The horse ate it fast. {name} had a fun day at the farm.",
+      developing: "{name} visited a farm on a sunny Saturday morning. The first animal {name} saw was a big brown cow standing near the fence, chewing slowly on some grass. Next, {name} walked past a pen of pink pigs rolling around in the mud, snorting happily. Inside the old red barn, a orange cat was curled up asleep on a pile of soft hay. {name} gently pet the cat, careful not to wake it too fast. Outside again, a tall brown horse trotted over to the fence. {name} held out a crunchy apple, and the horse ate it right from {name}'s hand. It had been a wonderful day exploring the farm.",
+      proficient: "Early on a bright Saturday morning, {name} arrived at the farm eager to see the animals. Near the wooden fence, a large brown cow stood chewing thoughtfully on a mouthful of grass, barely noticing the visitors. A little further along, a group of pink pigs rolled joyfully in the cool mud, snorting with satisfaction. Inside the weathered red barn, sunlight streamed through the cracks, illuminating an orange cat curled up asleep atop a mound of golden hay. {name} approached quietly and stroked the cat's soft fur without waking it. Back outside, a tall brown horse ambled over to the fence, its ears perked with curiosity. {name} offered a crisp apple, and the horse took it gently, crunching happily. By the end of the visit, {name} had learned that farms are full of busy, interesting animals, each with its own personality."
+    }
+  },
+  space: {
+    short: {
+      emerging: "{name} looks up. The sky is dark. Stars shine bright. {name} sees the moon. The moon is round. A rocket goes up. It flies to space. {name} waves at the rocket.",
+      developing: "{name} looked up at the night sky and saw thousands of twinkling stars scattered across the darkness. The big round moon glowed softly above the trees. Suddenly, a rocket blasted off in the distance, leaving a trail of bright orange fire behind it. {name} watched with wide eyes as the rocket climbed higher and higher until it disappeared into the clouds, heading toward space.",
+      proficient: "As night fell, {name} stepped outside and gazed up at a sky scattered with countless twinkling stars. The moon hung round and silver above the tree line, casting a pale glow over the yard. In the distance, a rocket suddenly roared to life, streaking upward on a trail of brilliant orange flame. {name} stood frozen in awe, watching the rocket climb faster and faster until it vanished into the clouds, carrying astronauts toward the vast unknown of outer space."
+    },
+    medium: {
+      emerging: "{name} wants to be an astronaut. {name} puts on a space suit. The suit is white and big. {name} gets into a rocket. The rocket is tall. Three, two, one, blast off! The rocket flies fast. {name} sees Earth below. Earth looks blue and round. {name} sees the moon up close. The moon has big rocks. {name} floats in space. It feels funny and fun. Soon {name} flies back home.",
+      developing: "{name} had always dreamed of becoming an astronaut, and today that dream was coming true. First, {name} put on a big white space suit with a shiny helmet. Then {name} climbed into a tall silver rocket waiting on the launch pad. After a countdown from ten, the rocket roared and blasted off into the sky. As it flew higher, {name} looked down and saw the Earth, glowing blue and round like a giant marble. Soon the rocket passed close to the moon, and {name} could see its bumpy gray rocks and craters. Floating inside the rocket felt strange, like swimming through air. After exploring for a while, {name} steered the rocket back toward home, excited to tell everyone about the incredible journey.",
+      proficient: "{name} had dreamed for years of becoming an astronaut, and finally, today, that dream was about to come true. After suiting up in a bulky white spacesuit and securing the shiny helmet, {name} climbed the long ladder into a towering silver rocket resting on the launch pad. A voice counted down from ten, and with a thunderous roar, the rocket shot off the ground and pierced through the clouds. As the rocket climbed, {name} peered out the small window and watched the Earth shrink into a glowing blue marble suspended in blackness. Minutes later, the moon appeared much closer, its cratered gray surface stretching out like an alien desert. Inside the rocket, {name} unbuckled and drifted weightlessly through the cabin, an odd but thrilling sensation. After taking photographs and collecting notes about the journey, {name} carefully guided the rocket back toward Earth, already imagining all the stories waiting to be shared."
+    }
+  },
+  ocean: {
+    short: {
+      emerging: "{name} swims in the sea. The water is blue. A fish swims by. The fish is orange. {name} sees a turtle too. The turtle swims slow. {name} waves at the fish. It swims away fast.",
+      developing: "{name} put on goggles and jumped into the clear blue ocean water. Right away, a bright orange fish swam past, darting between pieces of coral. A little further out, a green sea turtle glided slowly through the water, looking calm and unbothered. {name} waved gently, and the orange fish zipped away in a hurry, disappearing behind a rock.",
+      proficient: "With goggles snug against {name}'s face, the plunge into the clear blue ocean revealed a world bursting with color. A bright orange fish darted between clusters of coral, weaving quickly out of sight. Nearby, a green sea turtle drifted along at an unhurried pace, seemingly unfazed by the swimmer nearby. {name} gave a small wave, and the orange fish shot off in alarm, vanishing behind a jagged rock formation on the ocean floor."
+    },
+    medium: {
+      emerging: "{name} rides on a boat. The boat is white. The sea is big and blue. {name} sees a dolphin jump. The dolphin is gray. It jumps very high. {name} claps for the dolphin. Then {name} sees a whale. The whale is huge. It sprays water up. {name} gets a little wet. Everyone laughs. The boat sails back to land. {name} had a great day at sea.",
+      developing: "{name} climbed aboard a small white boat for a trip out onto the wide blue sea. The waves rocked gently as the boat sailed further from shore. Suddenly, a gray dolphin leaped high out of the water, spinning before splashing back down. {name} clapped with excitement at the amazing sight. A little later, an enormous whale surfaced nearby, spraying a tall mist of water into the air. Some of the spray drifted onto the boat, sprinkling {name} with cool droplets. Everyone on board laughed and cheered. As the sun began to set, the boat turned and sailed back toward the shore, ending a truly great day at sea.",
+      proficient: "{name} stepped aboard a small white boat, ready for an afternoon adventure on the open sea. As the boat pushed away from the dock, the waves rocked gently beneath it, and the shoreline slowly shrank behind them. Without warning, a sleek gray dolphin burst from the water, spinning gracefully through the air before diving back beneath the surface. {name} clapped, thrilled by the sudden display. Not long after, an enormous whale surfaced just off the bow, releasing a tall plume of mist that drifted lazily on the breeze. A few cool droplets landed on {name}'s shoulders, prompting laughter from everyone aboard. As the sky began turning shades of orange and pink, the boat finally turned back toward the harbor, bringing an unforgettable day at sea to a close."
+    }
+  },
+  sports: {
+    short: {
+      emerging: "{name} plays soccer. {name} kicks the ball. The ball goes fast. {name} runs to the goal. {name} kicks again. Goal! {name} scores a point. The team cheers loud. {name} feels happy.",
+      developing: "{name} laced up cleats and ran onto the soccer field, ready for the big game. When the ball came rolling toward {name}, a quick kick sent it flying down the field. {name} sprinted after it, dodging past two players, and lined up a shot at the goal. The ball sailed past the goalie and into the net. {name}'s teammates cheered loudly, running over for high fives.",
+      proficient: "With cleats laced tight and heart pounding, {name} jogged onto the soccer field for the championship game. The moment the ball rolled within reach, {name} struck it cleanly, sending it racing down the sideline. Weaving past two defenders with quick footwork, {name} lined up a shot just outside the box and fired it toward the goal. The ball curved past the goalkeeper's outstretched hands and landed in the back of the net. The crowd erupted, and {name}'s teammates rushed over, shouting with joy and offering high fives all around."
+    },
+    medium: {
+      emerging: "{name} loves basketball. Today is the big game. {name} puts on a jersey. It is blue and white. The whistle blows. The game begins. {name} runs fast down the court. A teammate passes the ball. {name} jumps up high. Swish! The ball goes in the hoop. Everyone claps. The score goes up. {name} keeps playing hard. At the end, {name}'s team wins. Everyone is proud. {name} smiles big.",
+      developing: "{name} had been looking forward to the basketball game all week. Before the game, {name} put on a blue and white jersey with the team's number on the back. When the referee blew the whistle, the game began and both teams sprinted onto the court. {name} ran down the court quickly, staying open for a pass. A teammate threw the ball, and {name} caught it, jumped up, and shot it toward the hoop. The ball swished cleanly through the net, and the crowd clapped loudly. {name} kept playing hard for the rest of the game, passing, defending, and scoring more points. When the final buzzer sounded, {name}'s team had won, and everyone celebrated together, proud of their teamwork.",
+      proficient: "{name} had been counting down the days until the basketball game, and finally it had arrived. Before tip-off, {name} pulled on a blue and white jersey, feeling a mix of nerves and excitement. As soon as the referee's whistle echoed through the gym, both teams sprinted into action. {name} moved quickly down the court, staying alert and ready for the ball. A teammate spotted the opening and passed it over, and {name} leapt into the air, releasing a smooth shot toward the hoop. The ball swished cleanly through the net, drawing a roar of applause from the stands. Throughout the rest of the game, {name} hustled on defense, set up teammates for easy baskets, and added several more points to the scoreboard. When the final buzzer sounded, {name}'s team had secured the win, and the whole team gathered in a joyful huddle, proud of everything they had accomplished together."
+    }
+  },
+  vehicles: {
+    short: {
+      emerging: "{name} sees a big truck. The truck is red. It has huge wheels. The truck goes over rocks. {name} watches it climb. The truck is very strong. {name} cheers for the truck.",
+      developing: "{name} stood by the fence, watching a giant red monster truck rumble into the dirt arena. Its huge wheels were taller than a grown-up, and the engine roared loudly. The truck climbed straight over a pile of rocks without slowing down at all. {name} cheered and clapped as the truck crushed over an old car with ease.",
+      proficient: "{name} pressed against the fence, eyes wide, as a massive red monster truck rolled into the dirt arena with a deep, rumbling growl. Its towering wheels, each taller than an adult, kicked up clouds of dust with every rotation. Without hesitation, the truck powered straight over a jagged pile of rocks, barely slowing its pace. {name} let out a cheer, watching in amazement as the truck's tires crushed effortlessly over an old rusted car parked in its path."
+    },
+    medium: {
+      emerging: "{name} goes to a truck show. There are many trucks. A fire truck is red. It has a loud siren. A dump truck is yellow. It carries big rocks. A tow truck pulls cars. {name} likes the fire truck best. {name} climbs inside. {name} honks the horn. It is very loud. {name} smiles big. The trucks are all so cool.",
+      developing: "{name} was excited to visit the truck show downtown, where many kinds of big vehicles were on display. The first truck {name} saw was a bright red fire truck with a loud siren and a long ladder on top. Next to it, a yellow dump truck sat with its bed tilted up, ready to drop a pile of heavy rocks. Nearby, a tow truck was hooked up to an old car, pulling it slowly along. {name}'s favorite, though, was the fire truck. A firefighter let {name} climb up into the driver's seat and press the horn button. The horn blasted so loudly that {name} jumped, then laughed with delight. It was an unforgettable day surrounded by amazing trucks.",
+      proficient: "{name} had been looking forward to the truck show downtown for weeks, and it did not disappoint. Right away, a bright red fire truck caught {name}'s attention, its ladder extending high into the sky and its siren occasionally blaring to demonstrate its power. Just beyond it, a massive yellow dump truck sat with its bed raised, tilted at a steep angle as it prepared to release a heavy load of gravel. A little further along, a sturdy tow truck was hitched to an old sedan, slowly hauling it across the lot. Of everything on display, the fire truck remained {name}'s favorite. A friendly firefighter invited {name} to climb into the driver's seat and press the horn, which let out a blast so loud that {name} jumped back in surprise before breaking into laughter. By the end of the afternoon, {name} had a new list of favorite vehicles and stories to tell about each one."
+    }
+  },
+  fantasy: {
+    short: {
+      emerging: "{name} finds a dragon. The dragon is green. It has big wings. The dragon flies up high. {name} rides on its back. They fly over hills. {name} feels the wind. It is a fun ride.",
+      developing: "Deep in an enchanted forest, {name} discovered a friendly green dragon resting beneath a tall tree. The dragon had huge, shimmering wings and kind golden eyes. When {name} climbed carefully onto its back, the dragon spread its wings and lifted off the ground. Together they soared over rolling green hills, the wind rushing past {name}'s face as the world shrank below.",
+      proficient: "Deep within an enchanted forest, tangled with ancient vines and glowing moss, {name} stumbled upon a magnificent green dragon resting beneath a towering oak. Its scales shimmered like emeralds in the sunlight, and its golden eyes regarded {name} with quiet curiosity rather than fear. Gathering courage, {name} climbed carefully onto the dragon's broad back, gripping its smooth scales as it unfurled its enormous wings. With a powerful beat, the dragon lifted off the ground, and together they soared above rolling green hills, the wind roaring past as the forest shrank into a distant patchwork below."
+    },
+    medium: {
+      emerging: "{name} finds a magic map. It shows a hidden castle. {name} walks through a dark woods. Owls hoot in the trees. {name} finds the old castle. It is tall and gray. Inside, {name} meets a wizard. The wizard has a long beard. He gives {name} a magic stone. The stone glows bright blue. {name} says thank you. Then {name} walks back home, holding the glowing stone tight.",
+      developing: "One afternoon, {name} discovered an old, crumbling map tucked inside a dusty book. The map showed a path through a dark forest leading to a hidden castle. Curious, {name} followed the winding trail as owls hooted softly from the shadowy trees above. After a long walk, a tall gray castle appeared, its towers reaching toward the clouds. Inside, {name} met an old wizard with a long silver beard and kind eyes. The wizard smiled and handed {name} a smooth stone that glowed with a soft blue light. He explained that the stone would bring good luck to whoever carried it. {name} thanked the wizard warmly and walked back home, holding the glowing stone tightly the whole way.",
+      proficient: "One quiet afternoon, {name} discovered an old, weathered map tucked between the pages of a dusty forgotten book. The faded lines traced a winding path through a dark forest, ending at a hidden castle marked with a small golden star. Curiosity outweighing caution, {name} set off down the trail as owls hooted softly from unseen branches overhead and the canopy blocked out most of the fading daylight. After what felt like hours of walking, a tall gray castle finally emerged from the mist, its ancient towers stretching toward the clouds. Inside the echoing halls, {name} encountered an elderly wizard with a long silver beard and sharp, kind eyes. Without a word of explanation needed, the wizard smiled knowingly and placed a smooth stone into {name}'s hands, one that pulsed gently with a soft blue light. He explained quietly that the stone carried old magic, meant only for someone brave enough to find the castle. Grateful and amazed, {name} thanked the wizard and began the long walk home, cradling the glowing stone the entire way, already wondering what adventures it might bring next."
+    }
+  }
+};
+
+// Comprehension questions per topic/length (generic enough to work across levels)
+const compQuestions = {
+  animals: [
+    { q: "What color was the dog/animal {name} saw first?", opts: ["Brown", "Blue", "Green"] },
+    { q: "What did {name} give the horse to eat?", opts: ["An apple", "A carrot", "Bread"] },
+    { q: "Where was the cat sleeping?", opts: ["On the hay", "On a chair", "In a tree"] }
+  ],
+  space: [
+    { q: "What did {name} put on before getting in the rocket?", opts: ["A space suit", "A raincoat", "A backpack"] },
+    { q: "What color did Earth look like from space?", opts: ["Blue", "Red", "Yellow"] },
+    { q: "What did the moon's surface look like?", opts: ["Bumpy and gray with rocks", "Smooth and green", "Covered in water"] }
+  ],
+  ocean: [
+    { q: "What color was the fish {name} saw?", opts: ["Orange", "Purple", "Black"] },
+    { q: "What jumped high out of the water?", opts: ["A dolphin", "A shark", "A crab"] },
+    { q: "What sprayed water into the air?", opts: ["A whale", "A boat", "A turtle"] }
+  ],
+  sports: [
+    { q: "What sport was {name} playing?", opts: ["Soccer or basketball", "Swimming", "Tennis"] },
+    { q: "What color was {name}'s jersey (medium story)?", opts: ["Blue and white", "Red and black", "Green"] },
+    { q: "Did {name}'s team win the game?", opts: ["Yes", "No", "The story doesn't say"] }
+  ],
+  vehicles: [
+    { q: "What color was the big truck?", opts: ["Red", "Yellow", "Blue"] },
+    { q: "What did the truck drive over?", opts: ["Rocks", "Water", "Sand"] },
+    { q: "Which truck was {name}'s favorite (medium story)?", opts: ["The fire truck", "The dump truck", "The tow truck"] }
+  ],
+  fantasy: [
+    { q: "What color was the dragon?", opts: ["Green", "Red", "Purple"] },
+    { q: "Who did {name} meet at the castle (medium story)?", opts: ["A wizard", "A king", "A knight"] },
+    { q: "What color did the magic stone glow?", opts: ["Blue", "Gold", "Red"] }
+  ]
+};
+
+function fillTemplate(str, name) {
+  return str.split("{name}").join(name);
+}
+
+function validate() {
+  let ok = true;
+  const name = document.getElementById('childName').value.trim();
+  const age = document.getElementById('childAge').value;
+  const level = document.querySelector('input[name="level"]:checked');
+
+  document.getElementById('err-name').style.display = 'none';
+  document.getElementById('err-age').style.display = 'none';
+  document.getElementById('err-level').style.display = 'none';
+
+  if (!name) { document.getElementById('err-name').style.display = 'block'; ok = false; }
+  if (!age || age < 3 || age > 12) { document.getElementById('err-age').style.display = 'block'; ok = false; }
+  if (!level) { document.getElementById('err-level').style.display = 'block'; ok = false; }
+
+  return ok;
+}
+
+function generateStories() {
+  if (!validate()) return;
+
+  const name = document.getElementById('childName').value.trim();
+  const level = document.querySelector('input[name="level"]:checked').value;
+  const topic = document.getElementById('topic').value;
+  const length = document.querySelector('input[name="length"]:checked').value;
+
+  const topicNames = {
+    animals: "Animals", space: "Space", ocean: "Ocean",
+    sports: "Sports", vehicles: "Trucks & Vehicles", fantasy: "Dragons & Fantasy"
+  };
+
+  // Story 1: chosen topic. Story 2: a different, randomly picked topic for variety.
+  const otherTopics = Object.keys(topics).filter(t => t !== topic);
+  const topic2 = otherTopics[Math.floor(Math.random() * otherTopics.length)];
+
+  const story1Text = fillTemplate(topics[topic][length][level], name);
+  const story2Text = fillTemplate(topics[topic2][length][level], name);
+
+  const results = document.getElementById('results');
+  results.style.display = 'block';
+  results.innerHTML = `
+    <div class="card story-card">
+      <h2>Story 1: ${topicNames[topic]}</h2>
+      <div class="story-text">${story1Text}</div>
+      ${renderCompQuestions(topic, name)}
+    </div>
+    <div class="card story-card">
+      <h2>Story 2: ${topicNames[topic2]}</h2>
+      <div class="story-text">${story2Text}</div>
+      ${renderCompQuestions(topic2, name)}
+    </div>
+    <button class="secondary" onclick="window.print()">Print / Save Stories</button>
+    <button class="secondary" onclick="location.reload()">Start Over</button>
+  `;
+  results.scrollIntoView({ behavior: 'smooth' });
+}
+
+function renderCompQuestions(topic, name) {
+  const qs = compQuestions[topic];
+  let html = '<div class="comp-questions"><h3>Comprehension Questions</h3>';
+  qs.forEach((item, i) => {
+    html += `<div class="comp-q">
+      <div class="qtext">${i+1}. ${fillTemplate(item.q, name)}</div>
+      <div class="opts">${item.opts.map(o => `<span>&#9633; ${o}</span>`).join('')}</div>
+    </div>`;
+  });
+  html += '</div>';
+  return html;
+}
+</script>
+
+</body>
+</html>
