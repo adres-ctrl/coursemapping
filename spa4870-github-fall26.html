@@ -119,9 +119,36 @@
     td.dt { display: none; }
     thead th:last-child { display: none; }
   }
+  .top-bar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.75rem;
+  }
+
+  .btn-textbook {
+    display: inline-block;
+    background: #1a3a5c;
+    color: #fff;
+    font-family: 'DM Sans', Arial, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 7px 18px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+
+  .btn-textbook:hover { background: #24527f; }
+
 </style>
 </head>
 <body>
+
+<div class="top-bar">
+  <a class="btn-textbook" href="https://ebookcentral.proquest.com/lib/ucf/reader.action?c=RVBVQg&docID=5971230&ppg=1" target="_top">Textbook</a>
+</div>
 
 <img class="banner"
   src="https://webcourses.ucf.edu/courses/1512801/files/122957174/preview"
