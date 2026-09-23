@@ -125,11 +125,14 @@
   }
   .top-bar {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-end;
+    gap: 0.6rem;
     margin-bottom: 0.75rem;
   }
 
-  .btn-widgets {
+  .btn-widgets,
+  .btn-announce {
     display: inline-block;
     background: #1a3a5c;
     color: #fff;
@@ -144,13 +147,22 @@
     transition: background 0.15s;
   }
 
-  .btn-widgets:hover { background: #24527f; }
+  .btn-widgets:hover, .btn-announce:hover { background: #24527f; }
+
+  .btn-announce {
+    background: #fff;
+    color: #1a3a5c;
+    border: 1.5px solid #1a3a5c;
+  }
+
+  .btn-announce:hover { background: #e8f0f8; color: #1a3a5c; }
 
 </style>
 </head>
 <body>
 
 <div class="top-bar">
+  <a class="btn-announce" href="https://webcourses.ucf.edu/courses/1515114/modules#module_3048983" target="_top">Course Information and Bulletins</a>
   <a class="btn-widgets" href="https://adres-ctrl.github.io/coursemapping/speech_science_guide.html" target="_top">Widgets</a>
 </div>
 
