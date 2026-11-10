@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPA 4870 — Course Modules — Spring 2027</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', Arial, sans-serif;
+    background: transparent;
+    color: #1a1a1a;
+    padding: 1rem;
+  }
+
+  img.banner {
+    display: block;
+    max-width: 100%;
+    width: auto;
+    max-height: 250px;
+    height: auto;
+    margin-bottom: 1.25rem;
+    border-radius: 4px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+
+  thead tr { background: #1a1a1a; }
+
+  thead th {
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  tbody tr { border-bottom: 1px solid #f0eeea; transition: background 0.15s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover:not(.active) { background: #fafaf8; }
+
+  td { padding: 10px 12px; font-size: 0.9rem; vertical-align: middle; }
+
+  td.wk {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #bbb;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    width: 64px;
+  }
+
+  td.ttl a {
+    color: #1a1a1a;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.15s;
+  }
+
+  td.ttl a:hover { color: #b85c00; text-decoration: underline; }
+
+  .exam-link {
+    font-size: 0.78rem;
+    color: #999;
+    margin-left: 8px;
+    font-style: italic;
+  }
+
+  .exam-link a {
+    color: #777;
+    text-decoration: none;
+  }
+
+  .exam-link a:hover { text-decoration: underline; }
+
+  td.dt {
+    font-size: 0.75rem;
+    color: #bbb;
+  }
+
+  /* ── Active row ── */
+  tr.active {
+    background: #fff6e0 !important;
+    outline: 2px solid #f0a500;
+    outline-offset: -2px;
+  }
+
+  tr.active td.wk { color: #c97a00; }
+  tr.active td.ttl a { color: #b85c00; font-weight: 700; }
+  tr.active td.dt { color: #c97a00; }
+
+  .badge {
+    display: inline-block;
+    background: #f0a500;
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 20px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  @media (max-width: 500px) {
+    td { padding: 8px 8px; font-size: 0.82rem; }
+    td.dt { display: none; }
+    thead th:last-child { display: none; }
+  }
+  .top-bar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.75rem;
+  }
+
+  .btn-textbook {
+    display: inline-block;
+    background: #1a3a5c;
+    color: #fff;
+    font-family: 'DM Sans', Arial, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 7px 18px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+
+  .btn-textbook:hover { background: #24527f; }
+
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <a class="btn-textbook" href="https://ebookcentral.proquest.com/lib/ucf/reader.action?c=RVBVQg&docID=5971230&ppg=1" target="_top">Textbook</a>
+</div>
+
+<img class="banner"
+  src="https://webcourses.ucf.edu/courses/1533252/files/127388737/preview"
+  alt="SPA 4870 Course Banner" />
+
+<table>
+  <thead>
+    <tr>
+      <th>Week</th>
+      <th>Module Title</th>
+      <th>Dates</th>
+    </tr>
+  </thead>
+  <tbody id="moduleBody"></tbody>
+</table>
+
+<script>
+  // ─────────────────────────────────────────────────────
+  //  UPDATE DATES EACH SEMESTER — everything else is auto
+  //  Format: "YYYY-MM-DD"
+  // ─────────────────────────────────────────────────────
+  const modules = [
+    {
+      wk: "Wk 1",
+      title: "Introduction",
+      url: "https://webcourses.ucf.edu/courses/1533252/modules/3126759",
+      start: "2027-01-11", end: "2027-01-17"
+    },
+    {
+      wk: "Wk 2",
+      title: "Health Insurance Portability and Accountability Act (HIPAA)",
+      url: "https://webcourses.ucf.edu/courses/1533252/modules/3126761",
+      start: "2027-01-18", end: "2027-01-24"
+    },
+    {
+      wk: "Wk 3",
+      title: "Articulation and Phonology",
+      url: "https://webcourses.ucf.edu/courses/1533252/modules/3126762",
+      start: "2027-01-25", end: "2027-01-31"
+    },
+    {
+      wk: "Wk 4",
+      title: "Language Development and Language Disorders",
+      url: "https://webcourses.ucf.edu/courses/1533252/modules/3126763",
+      start: "2027-02-01", end: "2027-02-07"
+    },
+    {
+      wk: "Wk 5",
+      title: "Speech, Language, and Hearing Sciences",
+      url: "https://webcourses.ucf.edu/courses/1533252/modules/3126764",
+      start: "2027-02-08", end: "2027-02-14"
+    },
+    {
+      wk: "Wk 6",
+      title: "Clinical Writing",
+      url: "https://webcourses.ucf.edu/courses/1533252/modules/3126765",
+      start: "2027-02-15", end: "2027-02-21"
+    },
+    {
+      wk: "Wk 7",
+      title: "Exam 1",
+      url: "https://webcourses.ucf.edu/courses/1533252/modules/3126766",
+      start: "2027-02-22", end: "2027-02-28"
+    },
+    {
+      wk: "Wk 8",
+      title: "UCF Library Lecture & Evidence Based Practice (EBP)",
+      url: "https://webcourses.ucf.edu/courses/1533252/modules/3126767",
+      start: "2027-03-01", end: "2027-03-07"
+    },
+    {
+      wk: "Wk 9",
+      title: "Acquired Language Disorders",
+      url: "https://webcourses.ucf.edu/courses/1533252/modules/3126768",
+      start: "2027-03-08", end: "2027-03-14"
+    },
+    {
+      wk: "Wk 10",
+      title: "Spring Break (No Classes)",
+      url: null,
+      start: "2027-03-15", end: "2027-03-21"
+    },
+    {
+      wk: "Wk 11",
+      title: "Acquired Speech Disorders",
+      url: "https://webcourses.ucf.edu/courses/1533252/modules/3126769",
+      start: "2027-03-22", end: "2027-03-28"
+    },
+    {
+      wk: "Wk 12",
+      title: "Audiology and Aural Rehabilitation",
+      url: "https://webcourses.ucf.edu/courses/1533252/modules/3126770",
+      start: "2027-03-29", end: "2027-04-04"
+    },
+    {
+      wk: "Wk 13",
+      title: "Diverse Communicative Contexts",
+      url: "https://webcourses.ucf.edu/courses/1533252/modules/3126771",
+      start: "2027-04-05", end: "2027-04-11"
+    },
+    {
+      wk: "Wk 14",
+      title: "Professional Development and Career Planning",
+      url: "https://webcourses.ucf.edu/courses/1533252/modules/3126772",
+      start: "2027-04-12", end: "2027-04-18"
+    },
+    {
+      wk: "Wk 15",
+      title: "Exam 2",
+      url: "https://webcourses.ucf.edu/courses/1533252/modules/3126773",
+      start: "2027-04-19", end: "2027-04-25"
+    },
+    {
+      wk: "Wk 16",
+      title: "CSD Cumulative Final Exam",
+      url: "https://webcourses.ucf.edu/courses/1533252/modules/3126774",
+      start: "2027-04-28", end: "2027-05-04"
+    }
+  ];
+  // ─────────────────────────────────────────────────────
+
+  function fmt(str) {
+    const [y, m, d] = str.split("-").map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  }
+
+  function build() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const tbody = document.getElementById("moduleBody");
+    tbody.innerHTML = "";
+
+    modules.forEach(mod => {
+      const [sy, sm, sd] = mod.start.split("-").map(Number);
+      const [ey, em, ed] = mod.end.split("-").map(Number);
+      const s = new Date(sy, sm - 1, sd);
+      const e = new Date(ey, em - 1, ed);
+      e.setHours(23, 59, 59);
+
+      const current = today >= s && today <= e;
+      const tr = document.createElement("tr");
+      if (current) tr.classList.add("active");
+
+      const badge = current ? `<span class="badge">&#9654; This Week</span>` : "";
+
+      const examTag = mod.examTitle
+        ? `<span class="exam-link">&nbsp;|&nbsp;<a href="${mod.examUrl}" target="_top">${mod.examTitle}</a></span>`
+        : "";
+
+      const titleCell = mod.url
+        ? `<a href="${mod.url}" target="_top">${mod.title}</a>`
+        : `<span style="color:#bbb;font-style:italic;">${mod.title}</span>`;
+
+      tr.innerHTML = `
+        <td class="wk">${mod.wk}</td>
+        <td class="ttl">${titleCell}${examTag}${badge}</td>
+        <td class="dt">${fmt(mod.start)} – ${fmt(mod.end)}</td>
+      `;
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  build();
+</script>
+</body>
+</html>
